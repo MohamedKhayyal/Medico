@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+.active {
+  color: #00a297;
+}
+
+a:hover {
+  color: #00a297;
+}
