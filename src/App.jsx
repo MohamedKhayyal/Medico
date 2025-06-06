@@ -5,7 +5,7 @@ import SignUp from "./pages/signup/SignUp";
 import Login from "./pages/login/Login";
 import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import Home from "./pages/home/Home";
 export default function App() {
   return (
     <div>
@@ -14,7 +14,6 @@ export default function App() {
         <Routes>
           <Route
             path="/signUp"
-            index
             element={
               <ProtectedRoute>
                 <SignUp />
@@ -29,6 +28,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/" index element={<Home />} />
         </Routes>
         <ToastContainer />
         <Footer />
