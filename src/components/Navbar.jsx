@@ -20,6 +20,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuth();
+
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -32,21 +33,30 @@ export default function Navbar() {
   }, [open]);
 
   return (
-    <nav className="flex items-center justify-between px-4 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
-      <Link to="/">
-        <img className="h-9" src={logo} alt="dummyLogoColored" />
+    <nav className="flex flex-wrap items-center justify-between gap-5 px-4 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
+      <Link to="/" className="flex-shrink-0">
+        <img className="h-9 w-auto" src={logo} alt="Logo" />
       </Link>
 
-      <div className="hidden sm:flex items-center gap-6 md:gap-10">
-        <NavLink to="/" className="flex items-center gap-2">
+      <div className="hidden sm:flex items-center gap-4 md:gap-8 flex-wrap">
+        <NavLink
+          to="/"
+          className="flex items-center gap-2 text-sm whitespace-nowrap"
+        >
           <FontAwesomeIcon icon={faHouse} />
           Home
         </NavLink>
-        <NavLink to="/medicines" className="flex items-center gap-2">
+        <NavLink
+          to="/medicines"
+          className="flex items-center gap-2 text-sm whitespace-nowrap"
+        >
           <FontAwesomeIcon icon={faPills} />
           Medicines
         </NavLink>
-        <NavLink to="/contact" className="flex items-center gap-2">
+        <NavLink
+          to="/contact"
+          className="flex items-center gap-2 text-sm whitespace-nowrap"
+        >
           <FontAwesomeIcon icon={faPhone} />
           Contact
         </NavLink>
@@ -66,11 +76,6 @@ export default function Navbar() {
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </button>
-        </div>
-
-        <div className="relative cursor-pointer flex items-center gap-4">
-          <FontAwesomeIcon icon={faCartShopping} />
-          <FontAwesomeIcon icon={faHeart} />
         </div>
 
         {user ? (
@@ -93,29 +98,49 @@ export default function Navbar() {
             Login
           </button>
         )}
+
+        <div className="flex gap-6 mt-4 text-[20px] px-2">
+          <div className="hover:text-[#00A297] transition-colors duration-300 cursor-pointer">
+            <FontAwesomeIcon icon={faCartShopping} />
+          </div>
+          <div className="hover:text-[#00A297] transition-colors duration-300 cursor-pointer">
+            <FontAwesomeIcon icon={faHeart} />
+          </div>
+        </div>
       </div>
 
-      <div className="flex sm:hidden items-center gap-2">
-        <input
-          className="py-1 px-2 bg-gray-100 rounded outline-none text-sm w-24"
-          type="text"
-          placeholder="Search..."
-        />
+      <div className="flex sm:hidden items-center justify-between w-full mt-4">
+        <div className="flex items-center gap-6 text-[20px] px-2">
+          <div className="hover:text-[#00A297] transition-colors duration-300 cursor-pointer">
+            <FontAwesomeIcon icon={faCartShopping} />
+          </div>
+          <div className="hover:text-[#00A297] transition-colors duration-300 cursor-pointer">
+            <FontAwesomeIcon icon={faHeart} />
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <input
+            className="py-1 px-2 bg-gray-100 rounded outline-none text-sm w-24"
+            type="text"
+            placeholder="Search..."
+          />
+          <button
+            className="h-8 w-8 flex items-center justify-center text-white rounded"
+            style={{ background: "#00A297" }}
+          >
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </button>
+        </div>
+
         <button
-          className="h-8 w-8 flex items-center justify-center text-white rounded"
-          style={{ background: "#00A297" }}
+          onClick={() => setOpen(!open)}
+          aria-label="Menu"
+          className="ml-2"
         >
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
+          <FontAwesomeIcon icon={faBars} size="lg" />
         </button>
       </div>
-
-      <button
-        onClick={() => setOpen(!open)}
-        aria-label="Menu"
-        className="sm:hidden ml-2"
-      >
-        <FontAwesomeIcon icon={faBars} size="lg" />
-      </button>
 
       <div
         className={`fixed inset-0 z-50 transition-transform duration-300 ${
@@ -154,6 +179,7 @@ export default function Navbar() {
           <FontAwesomeIcon icon={faPhone} />
           Contact
         </NavLink>
+
         {user ? (
           <Logout className="flex items-center gap-2 px-5 py-2 mt-4 bg-[#00A297] hover:bg-[#00897B] transition text-white rounded-full w-full justify-center text-lg" />
         ) : (

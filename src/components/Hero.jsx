@@ -26,7 +26,7 @@ export default function Hero() {
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
-    <div className="relative w-full bg-[#d6f6f6] overflow-hidden min-h-[350px] md:min-h-[420px] lg:min-h-[500px] flex items-center group">
+    <div className="mb-20 relative w-full bg-[#d6f6f6] overflow-hidden min-h-[350px] md:min-h-[420px] lg:min-h-[500px] flex items-center group">
       {/* Left Arrow */}
       <button
         onClick={prevSlide}
@@ -50,10 +50,10 @@ export default function Hero() {
       {/* Slider Content */}
       <div
         key={current}
-        className="w-full flex flex-col md:flex-row items-center justify-between px-4 md:px-12 lg:px-24 xl:px-32 py-8 gap-8 transition-opacity duration-700 ease-in-out animate-fadeIn"
+        className="w-full flex flex-col md:flex-row items-center px-4 md:px-12 lg:px-24 xl:px-32 py-8 gap-8 transition-opacity duration-700 ease-in-out animate-fadeIn"
       >
         {/* Image */}
-        <div className="w-full md:w-1/2 flex justify-start items-center transition-all duration-700 ease-in-out">
+        <div className="w-full md:w-1/2 transition-all duration-700 ease-in-out">
           <img
             src={slides[current].image}
             alt="slide"
@@ -77,13 +77,13 @@ export default function Hero() {
             {slides[current].desc}
           </p>
 
-          <button className="animate__animated animate__fadeInUp animate__delay-05s bg-[#00A297] hover:bg-[#00897B] text-white font-semibold px-8 py-3 rounded transition shadow">
+          <button className="animate__animated animate__fadeInUp animate__delay-05s bg-[#00A297] hover:bg-[#00897B] text-white font-semibold px-8 py-3 rounded transition shadow cursor-pointer">
             {slides[current].button}
           </button>
         </div>
       </div>
       {/* Dots */}
-      <div className="absolute bottom-1 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+      <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 flex gap-3 z-10">
         {slides.map((_, idx) => (
           <span
             key={idx}
