@@ -24,3 +24,10 @@ a:hover {
 .animate__delay-05s {
   animation-delay: 0.3s;
 }
+
+.lg-flex-row {
+  @media (width >= 1200px) {
+    flex-direction: row;
+  }
+}
+

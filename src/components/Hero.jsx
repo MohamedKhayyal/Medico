@@ -57,6 +57,7 @@ export default function Hero() {
           <img
             src={slides[current].image}
             alt="slide"
+            loading="lazy"
             className="w-auto h-[280px] md:h-[420px] lg:h-[500px] max-w-full object-contain"
           />
         </div>
@@ -77,7 +78,7 @@ export default function Hero() {
             {slides[current].desc}
           </p>
 
-          <button className="animate__animated animate__fadeInUp animate__delay-05s bg-[#00A297] hover:bg-[#00897B] text-white font-semibold px-8 py-3 rounded transition shadow cursor-pointer">
+          <button className="animate__animated animate__fadeInUp animate__delay-05s bg-[#00A297] hover:bg-[#0d0d0d] text-white font-semibold px-8 py-3 rounded transition shadow cursor-pointer">
             {slides[current].button}
           </button>
         </div>
