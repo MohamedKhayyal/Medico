@@ -1,6 +1,54 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../firebase/firebaseConfig";
+import { toast } from "react-toastify";
 
-const ContactUs = () => {
+export default function ContactUs() {
+  const [formData, setFormData] = useState({
+    subject: "Customer service",
+    email: "",
+    message: "",
+    agree: false,
+  });
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.agree) {
+      toast.error("Please agree to the terms and conditions.", {
+        position: "bottom-center",
+      });
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, "contactMessages"), {
+        ...formData,
+        timestamp: serverTimestamp(),
+      });
+      toast.success("Message sent successfully!", {
+        position: "top-center",
+      });
+      setFormData({
+        subject: "Customer service",
+        email: "",
+        message: "",
+        agree: false,
+      });
+    } catch (err) {
+      toast.error("Failed to send message.", {
+        position: "bottom-center",
+      });
+    }
+  };
+
   return (
     <>
       <div className="w-full flex justify-between items-center mb-10 bg-[#eaf7f7] px-4 md:px-16 lg:px-24 xl:px-32 py-5">
@@ -49,7 +97,10 @@ const ContactUs = () => {
             </aside>
 
             {/* Contact Form */}
-            <form className="bg-white rounded-lg shadow p-6 flex-1">
+            <form
+              className="bg-white rounded-lg shadow p-6 flex-1"
+              onSubmit={handleSubmit}
+            >
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-4">
                 <label className="font-medium md:text-right" htmlFor="subject">
                   Subject
@@ -58,7 +109,8 @@ const ContactUs = () => {
                   id="subject"
                   name="subject"
                   className="col-span-3 border rounded px-3 py-2 focus:outline-teal-400"
-                  defaultValue="Customer service"
+                  value={formData.subject}
+                  onChange={handleChange}
                 >
                   <option>Customer service</option>
                   <option>Technical support</option>
@@ -75,6 +127,8 @@ const ContactUs = () => {
                   type="email"
                   placeholder="your@email.com"
                   className="col-span-3 border rounded px-3 py-2 focus:outline-teal-400"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -114,6 +168,8 @@ const ContactUs = () => {
                   placeholder="How can we help?"
                   rows={4}
                   className="col-span-3 border rounded px-3 py-2 focus:outline-teal-400"
+                  value={formData.message}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -123,8 +179,11 @@ const ContactUs = () => {
                   name="agree"
                   type="checkbox"
                   className="mr-2"
+                  checked={formData.agree}
+                  onChange={handleChange}
                   required
                 />
+
                 <label htmlFor="agree" className="text-sm">
                   I agree to the terms and conditions and the privacy policy
                 </label>
@@ -143,6 +202,4 @@ const ContactUs = () => {
       </div>
     </>
   );
-};
-
-export default ContactUs;
+}

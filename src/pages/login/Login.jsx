@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   signInWithEmailAndPassword,
@@ -17,11 +17,18 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      toast.success("Welcome Back", {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      const name = user.displayName || user.email.split("@")[0];
+
+      toast.success(`Welcome back ${name}`, {
         position: "top-center",
       });
-      navigate("/"); // or another protected route
+      navigate("/");
     } catch (err) {
       toast.error(err.message, { position: "bottom-center" });
     }
@@ -30,8 +37,11 @@ export default function Login() {
   const handleGoogleLogin = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
-      toast.success("Logged in successfully!", {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const name = user.displayName || user.email.split("@")[0];
+
+      toast.success(`Welcome back ${name}`, {
         position: "top-center",
       });
       navigate("/");

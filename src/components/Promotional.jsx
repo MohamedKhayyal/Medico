@@ -2,7 +2,7 @@ import image from "../assets/parallax_img.jpg";
 export default function Promotional() {
   return (
     <div
-      className="relative flex flex-col md:flex-row items-center justify-start text-sm border border-gray-300 rounded-md w-full h-screen overflow-hidden bg-center bg-cover"
+      className="mb-20 flex flex-col md:flex-row items-center justify-start text-sm border border-gray-300 rounded-md w-full h-screen overflow-hidden bg-center bg-cover"
       style={{
         backgroundImage: `url('${image}')`,
         backgroundSize: "cover",
