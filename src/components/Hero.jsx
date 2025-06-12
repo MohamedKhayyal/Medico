@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import image1 from "../assets/sample-1.jpg";
 import image2 from "../assets/sample-2.jpg";
 
@@ -25,9 +25,16 @@ export default function Hero() {
   const prevSlide = () =>
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="mb-20 relative w-full overflow-hidden min-h-[320px] sm:min-h-[380px] md:min-h-[420px] lg:min-h-[500px] flex items-center justify-center group">
-      {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center z-0 transition-all duration-500"
         style={{
