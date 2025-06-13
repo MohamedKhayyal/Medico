@@ -1,10 +1,15 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import { toast } from "react-toastify";
 
 export default function ContactUs() {
+  const Navigate = useNavigate();
+  useEffect(() => {
+    document.title = "Contact us";
+  }, []);
+
   const [formData, setFormData] = useState({
     subject: "Customer service",
     email: "",
@@ -43,9 +48,10 @@ export default function ContactUs() {
         agree: false,
       });
     } catch (err) {
-      toast.error("Failed to send message.", {
+      toast.error("Please SignUp to Send The Message", {
         position: "bottom-center",
       });
+      Navigate("/signUp");
     }
   };
 
