@@ -4,6 +4,7 @@ import PopularCategories from "../../components/PopularCategories";
 import ProductBanner from "../../components/ProductBanner";
 import Promotional from "../../components/Promotional";
 import Comments from "../../components/Comments";
+import ServiceFeatures from "../../components/ServiceFeatures";
 
 export default function Home() {
   useEffect(() => {
@@ -17,6 +18,7 @@ export default function Home() {
       <PopularCategories />
       <Promotional />
       <Comments/>
+      <ServiceFeatures/>
     </div>
   );
 }
