@@ -7,9 +7,11 @@ import { ToastContainer } from "react-toastify";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/home/Home";
 import ContactUs from "./pages/contact/ContactUs";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 export default function App() {
   return (
     <div>
+      <ScrollToTopButton />
       <BrowserRouter>
         <Navbar />
         <Routes>
@@ -30,7 +32,7 @@ export default function App() {
             }
           />
           <Route path="/" index element={<Home />} />
-          <Route path="contact" index element={<ContactUs/>} />
+          <Route path="contact" index element={<ContactUs />} />
         </Routes>
         <ToastContainer />
         <Footer />
