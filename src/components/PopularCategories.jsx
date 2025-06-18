@@ -77,7 +77,7 @@ export default function PopularCategories() {
   const pagedCategories = categories.slice(start, end);
 
   return (
-    <div className="w-full py-12 mb-20">
+    <div className="w-full py-12 mb-10">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-10">
         Popular Categories
       </h2>

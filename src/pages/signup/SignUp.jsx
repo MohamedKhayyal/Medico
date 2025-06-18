@@ -32,16 +32,14 @@ export default function SignUp() {
 
   return (
     <div className="flex h-[700px] w-full mb-10">
-      {/* Left Image Side */}
       <div className="w-full hidden md:inline-block">
         <img
           className="h-full w-full object-cover"
           src={image}
           alt="leftSideImage"
+          loading="lazy"
         />
       </div>
-
-      {/* Right Form Side */}
       <div className="w-full flex flex-col items-center justify-center">
         <form
           onSubmit={handleSignUp}
@@ -51,8 +49,6 @@ export default function SignUp() {
           <p className="text-sm text-gray-500/90 mt-3">
             Create your account to get started
           </p>
-
-          {/* Username Input */}
           <div className="flex items-center my-4 w-full bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
             <FontAwesomeIcon icon={faUser} className="text-gray-500" />
             <input
@@ -64,8 +60,6 @@ export default function SignUp() {
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
-
-          {/* Email Input */}
           <div className="flex items-center w-full bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
             <FontAwesomeIcon icon={faEnvelope} className="text-gray-500" />
             <input
@@ -77,8 +71,6 @@ export default function SignUp() {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-
-          {/* Password Input */}
           <div className="flex items-center mt-6 w-full bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
             <FontAwesomeIcon icon={faLock} className="text-gray-500" />
             <input
@@ -90,15 +82,12 @@ export default function SignUp() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-
-          {/* Submit Button */}
           <button
             type="submit"
             className="mt-8 w-full h-11 rounded-full text-white bg-[#00A297] hover:opacity-90 transition-opacity"
           >
             Create Account
           </button>
-
           <p className="text-gray-500/90 text-sm mt-4">
             Already have an account?{" "}
             <Link className="text-indigo-400 hover:underline" to={"/login"}>

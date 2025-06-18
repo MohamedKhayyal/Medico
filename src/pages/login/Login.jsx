@@ -55,6 +55,7 @@ export default function Login() {
           className="h-full w-full object-cover"
           src={image}
           alt="leftSideImage"
+          loading="lazy"
         />
       </div>
       <div className="w-full flex flex-col items-center justify-center">

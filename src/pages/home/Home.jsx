@@ -5,6 +5,7 @@ import ProductBanner from "../../components/ProductBanner";
 import Promotional from "../../components/Promotional";
 import Comments from "../../components/Comments";
 import ServiceFeatures from "../../components/ServiceFeatures";
+import LatestProducts from "../../components/LatestProducts";
 
 export default function Home() {
   useEffect(() => {
@@ -16,9 +17,11 @@ export default function Home() {
       <Hero />
       <ProductBanner />
       <PopularCategories />
+      <LatestProducts title={"Latest Products"} />
       <Promotional />
-      <Comments/>
-      <ServiceFeatures/>
+      <LatestProducts title={"Featured Products"} />
+      <ServiceFeatures />
+      <Comments />
     </div>
   );
 }

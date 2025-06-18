@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -66,7 +66,7 @@ export default function Comments() {
       </div>
       <div className="w-full md:w-2/3">
         <Swiper
-          modules={[Navigation]}
+          modules={[Navigation, Autoplay]}
           navigation={{
             prevEl: prevRef.current,
             nextEl: nextRef.current,
@@ -76,6 +76,7 @@ export default function Comments() {
             swiper.params.navigation.nextEl = nextRef.current;
           }}
           loop={true}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
           spaceBetween={32}
           slidesPerView={1}
           breakpoints={{
