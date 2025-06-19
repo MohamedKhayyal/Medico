@@ -6,6 +6,7 @@ import Promotional from "../../components/Promotional";
 import Comments from "../../components/Comments";
 import ServiceFeatures from "../../components/ServiceFeatures";
 import LatestProducts from "../../components/LatestProducts";
+import DealOfTheDay from "../../components/DealOfTheDay";
 
 export default function Home() {
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function Home() {
       <ProductBanner />
       <PopularCategories />
       <LatestProducts title={"Latest Products"} />
+      <DealOfTheDay />
       <Promotional />
       <LatestProducts title={"Featured Products"} />
       <ServiceFeatures />

@@ -24,10 +24,8 @@ export default function LatestProducts({ title }) {
         });
         const shuffled = items.sort(() => 0.5 - Math.random());
         const selected = shuffled.slice(0, 9);
-        console.log("Random 9 products:", selected);
         setProducts(selected);
       } catch (err) {
-        console.error("Failed to fetch products:", err);
         setProducts([]);
       } finally {
         setLoading(false);
@@ -89,10 +87,10 @@ export default function LatestProducts({ title }) {
                       : "-translate-y-8 opacity-0"
                   }`}
                 >
-                  <button className="group bg-transparent border border-gray-300 rounded-full p-2 shadow hover:bg-[#00A297] transition duration-300">
+                  <button className="bg-transparent border border-gray-300 rounded-full p-2 shadow hover:text-white hover:bg-[#00A297] transition duration-300">
                     <FontAwesomeIcon
                       icon={farHeart}
-                      className=" group-hover:text-gray transition duration-300"
+                      className="transition duration-300"
                     />
                   </button>
                 </div>
