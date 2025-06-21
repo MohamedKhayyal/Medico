@@ -38,6 +38,25 @@ export default function Navbar() {
         <img className="h-9 w-auto" src={logo} alt="Logo" />
       </Link>
 
+      {/* Responsive Search Bar - always visible */}
+      <div className="flex items-center flex-1 justify-center mx-4">
+        <div
+          className="flex items-center w-full max-w-xs border rounded h-9"
+          style={{ borderColor: "#00A297" }}
+        >
+          <input
+            className="py-1.5 px-3 bg-transparent outline-none placeholder-gray-500 flex-1 min-w-0 text-sm"
+            type="text"
+            placeholder="Search products Here..."
+          />
+          <button
+            className="h-9 w-9 flex items-center justify-center text-white rounded-r"
+            style={{ background: "#00A297" }}
+          >
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </button>
+        </div>
+      </div>
       <div className="hidden sm:flex items-center gap-4 md:gap-8 flex-wrap">
         <NavLink
           to="/"
@@ -60,24 +79,6 @@ export default function Navbar() {
           <FontAwesomeIcon icon={faPhone} />
           Contact
         </NavLink>
-
-        <div
-          className="hidden lg:flex items-center text-sm gap-2 h-9 rounded border"
-          style={{ borderColor: "#00A297" }}
-        >
-          <input
-            className="py-1.5 px-3 bg-transparent outline-none placeholder-gray-500"
-            type="text"
-            placeholder="Search products Here..."
-          />
-          <button
-            className="h-9 w-9 flex items-center justify-center text-white rounded-r"
-            style={{ background: "#00A297" }}
-          >
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </button>
-        </div>
-
         {user ? (
           <Logout
             className="flex items-center gap-2 px-6 py-2 text-white rounded-full transition-colors duration-300"
@@ -98,7 +99,6 @@ export default function Navbar() {
             Login
           </button>
         )}
-
         <div className="flex gap-6 mt-4 text-[20px] px-2">
           <div className="hover:text-[#00A297] transition-colors duration-300 cursor-pointer">
             <FontAwesomeIcon icon={faCartShopping} />
@@ -108,7 +108,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
       <div className="flex sm:hidden items-center justify-between w-full mt-4">
         <div className="flex items-center gap-6 text-[20px] px-2">
           <div className="hover:text-[#00A297] transition-colors duration-300 cursor-pointer">
@@ -118,21 +117,6 @@ export default function Navbar() {
             <FontAwesomeIcon icon={faHeart} />
           </div>
         </div>
-
-        <div className="flex items-center gap-2">
-          <input
-            className="py-1 px-2 bg-gray-100 rounded outline-none text-sm w-24"
-            type="text"
-            placeholder="Search..."
-          />
-          <button
-            className="h-8 w-8 flex items-center justify-center text-white rounded"
-            style={{ background: "#00A297" }}
-          >
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </button>
-        </div>
-
         <button
           onClick={() => setOpen(!open)}
           aria-label="Menu"
@@ -141,7 +125,6 @@ export default function Navbar() {
           <FontAwesomeIcon icon={faBars} size="lg" />
         </button>
       </div>
-
       <div
         className={`fixed inset-0 z-50 transition-transform duration-300 ${
           open ? "translate-x-0" : "-translate-x-full"
@@ -179,7 +162,6 @@ export default function Navbar() {
           <FontAwesomeIcon icon={faPhone} />
           Contact
         </NavLink>
-
         {user ? (
           <Logout className="flex items-center gap-2 px-5 py-2 mt-4 bg-[#00A297] hover:bg-[#00897B] transition text-white rounded-full w-full justify-center text-lg" />
         ) : (

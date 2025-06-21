@@ -19,7 +19,9 @@ export default function DealOfTheDay() {
           loading ? (
             <div className="text-center py-12">Loading...</div>
           ) : products.length === 0 ? (
-            <div className="text-center py-12 text-red-500">No products found.</div>
+            <div className="text-center py-12 text-red-500">
+              No products found.
+            </div>
           ) : (
             <Swiper
               modules={[Navigation]}
@@ -40,11 +42,12 @@ export default function DealOfTheDay() {
                     onMouseEnter={() => setHovered(product.id)}
                     onMouseLeave={() => setHovered(null)}
                   >
-                    <div className="w-1/2 flex justify-center items-center mb-4 md:mb-0 relative h-full">
+                    <div className="w-full md:w-1/2 flex justify-center items-center mb-4 md:mb-0 relative aspect-square max-w-[200px] mx-auto">
                       <img
+                        loading="lazy"
                         src={product.cover}
                         alt={product.name || "Product"}
-                        className={`absolute w-40 h-40 object-contain transition-all duration-400 ${
+                        className={`absolute inset-0 w-full h-full object-contain transition-all duration-400 ${
                           hovered === product.id
                             ? "opacity-0 scale-95"
                             : "opacity-100 scale-100"
@@ -52,9 +55,10 @@ export default function DealOfTheDay() {
                       />
                       {product.image1 && (
                         <img
+                          loading="lazy"
                           src={product.image1}
                           alt={product.name}
-                          className={`absolute w-40 h-40 object-contain transition-all duration-400 ${
+                          className={`absolute inset-0 w-full h-full object-contain transition-all duration-400 ${
                             hovered === product.id
                               ? "opacity-100 scale-100"
                               : "opacity-0 scale-105"
@@ -89,7 +93,7 @@ export default function DealOfTheDay() {
                       </div>
                       <div className="flex items-center gap-2 mb-1">
                         <span className="line-through text-gray-400 text-base">
-                          ${product.price}
+                          {product.price ? `$${product.price}` : ""}
                         </span>
                         <span className="text-[#00A297] font-bold text-xl">
                           ${product.discount || product.descount}
@@ -112,7 +116,10 @@ export default function DealOfTheDay() {
                         <div
                           className="bg-[#00A297] h-2 rounded-full"
                           style={{
-                            width: `${Math.min(100, (product.stock / 400) * 100)}%`,
+                            width: `${Math.min(
+                              100,
+                              (product.stock / 400) * 100
+                            )}%`,
                           }}
                         ></div>
                       </div>

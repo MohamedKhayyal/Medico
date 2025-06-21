@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/home/Home";
 import ContactUs from "./pages/contact/ContactUs";
 import ScrollToTopButton from "./components/ScrollToTopButton";
+import Medcine from "./pages/products/Medcine";
 export default function App() {
   return (
     <div>
@@ -33,6 +34,7 @@ export default function App() {
           />
           <Route path="/" index element={<Home />} />
           <Route path="contact" index element={<ContactUs />} />
+          <Route path="medicines" index element={<Medcine />} />
         </Routes>
         <ToastContainer />
         <Footer />

@@ -24,7 +24,7 @@ export default function Promotional() {
 
   return (
     <>
-      <div className="relative mb-5 w-full h-screen overflow-hidden rounded-md">
+      <div className="relative mb-5 w-full h-[115vh] overflow-hidden rounded-md">
         <div
           className="absolute top-0 left-0 w-full h-full bg-center bg-cover z-0"
           style={{
