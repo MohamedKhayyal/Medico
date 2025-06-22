@@ -15,32 +15,69 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "./AuthContext";
 import Logout from "./Logout";
+import { useCart } from "./CartContext";
+import { useWishlist } from "./WishlistContext";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { cart } = useCart();
+  const { wishlist } = useWishlist();
+  const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (search.trim()) {
+      navigate(`/medicines?search=${encodeURIComponent(search.trim())}`);
+      setSearch("");
     }
+  };
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [open]);
 
+  const renderIcons = (
+    <div className="flex gap-6 text-[20px] px-2 relative">
+      <Link
+        to="/cart"
+        className="hover:text-[#00A297] transition-colors duration-300 cursor-pointer relative"
+      >
+        <FontAwesomeIcon icon={faCartShopping} />
+        {cart.length > 0 && (
+          <span className="absolute -top-2 -right-3 text-xs bg-[#00A297] text-white rounded-full w-5 h-5 flex items-center justify-center">
+            {cart.length}
+          </span>
+        )}
+      </Link>
+      <Link
+        to="/wishlist"
+        className="hover:text-[#00A297] transition-colors duration-300 cursor-pointer relative"
+      >
+        <FontAwesomeIcon icon={faHeart} />
+        {wishlist.length > 0 && (
+          <span className="absolute -top-2 -right-3 text-xs bg-[#00A297] text-white rounded-full w-5 h-5 flex items-center justify-center">
+            {wishlist.length}
+          </span>
+        )}
+      </Link>
+    </div>
+  );
+
   return (
-    <nav className="flex flex-wrap items-center justify-between gap-5 px-4 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
+    <nav className=" bg-white border-b border-gray-300 px-4 md:px-16 lg:px-24 xl:px-32 py-4 flex flex-wrap items-center justify-between gap-5 transition-all">
+      {/* Logo */}
       <Link to="/" className="flex-shrink-0">
         <img className="h-9 w-auto" src={logo} alt="Logo" />
       </Link>
 
-      {/* Responsive Search Bar - always visible */}
+      {/* Search Bar */}
       <div className="flex items-center flex-1 justify-center mx-4">
-        <div
+        <form
+          onSubmit={handleSearch}
           className="flex items-center w-full max-w-xs border rounded h-9"
           style={{ borderColor: "#00A297" }}
         >
@@ -48,15 +85,20 @@ export default function Navbar() {
             className="py-1.5 px-3 bg-transparent outline-none placeholder-gray-500 flex-1 min-w-0 text-sm"
             type="text"
             placeholder="Search products Here..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
           <button
+            type="submit"
             className="h-9 w-9 flex items-center justify-center text-white rounded-r"
             style={{ background: "#00A297" }}
           >
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </button>
-        </div>
+        </form>
       </div>
+
+      {/* Desktop Nav */}
       <div className="hidden sm:flex items-center gap-4 md:gap-8 flex-wrap">
         <NavLink
           to="/"
@@ -79,6 +121,7 @@ export default function Navbar() {
           <FontAwesomeIcon icon={faPhone} />
           Contact
         </NavLink>
+
         {user ? (
           <Logout
             className="flex items-center gap-2 px-6 py-2 text-white rounded-full transition-colors duration-300"
@@ -99,24 +142,14 @@ export default function Navbar() {
             Login
           </button>
         )}
-        <div className="flex gap-6 mt-4 text-[20px] px-2">
-          <div className="hover:text-[#00A297] transition-colors duration-300 cursor-pointer">
-            <FontAwesomeIcon icon={faCartShopping} />
-          </div>
-          <div className="hover:text-[#00A297] transition-colors duration-300 cursor-pointer">
-            <FontAwesomeIcon icon={faHeart} />
-          </div>
-        </div>
+
+        {/* Cart + Wishlist */}
+        {renderIcons}
       </div>
+
+      {/* Mobile Top Row */}
       <div className="flex sm:hidden items-center justify-between w-full mt-4">
-        <div className="flex items-center gap-6 text-[20px] px-2">
-          <div className="hover:text-[#00A297] transition-colors duration-300 cursor-pointer">
-            <FontAwesomeIcon icon={faCartShopping} />
-          </div>
-          <div className="hover:text-[#00A297] transition-colors duration-300 cursor-pointer">
-            <FontAwesomeIcon icon={faHeart} />
-          </div>
-        </div>
+        {renderIcons}
         <button
           onClick={() => setOpen(!open)}
           aria-label="Menu"
@@ -125,8 +158,10 @@ export default function Navbar() {
           <FontAwesomeIcon icon={faBars} size="lg" />
         </button>
       </div>
+
+      {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 z-50 transition-transform duration-300 ${
+        className={`fixed inset-0 z-50 transition-transform duration-300 overflow-y-auto ${
           open ? "translate-x-0" : "-translate-x-full"
         } bg-white flex flex-col items-start gap-3 px-5 py-6 md:hidden`}
         style={{ minHeight: "100vh" }}
@@ -138,30 +173,34 @@ export default function Navbar() {
         >
           <FontAwesomeIcon icon={faXmark} />
         </button>
+
         <NavLink
           to="/"
-          className="flex items-center gap-2 w-full py-2 text-lg"
           onClick={() => setOpen(false)}
+          className="flex items-center gap-2 w-full py-2 text-lg"
         >
           <FontAwesomeIcon icon={faHouse} />
           Home
         </NavLink>
+
         <NavLink
           to="/medicines"
-          className="flex items-center gap-2 w-full py-2 text-lg"
           onClick={() => setOpen(false)}
+          className="flex items-center gap-2 w-full py-2 text-lg"
         >
           <FontAwesomeIcon icon={faPills} />
           Medicines
         </NavLink>
+
         <NavLink
           to="/contact"
-          className="flex items-center gap-2 w-full py-2 text-lg"
           onClick={() => setOpen(false)}
+          className="flex items-center gap-2 w-full py-2 text-lg"
         >
           <FontAwesomeIcon icon={faPhone} />
           Contact
         </NavLink>
+
         {user ? (
           <Logout className="flex items-center gap-2 px-5 py-2 mt-4 bg-[#00A297] hover:bg-[#00897B] transition text-white rounded-full w-full justify-center text-lg" />
         ) : (

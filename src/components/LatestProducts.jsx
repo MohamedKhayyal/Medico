@@ -7,10 +7,14 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import ProductCollection from "./ProductCollection";
+import { Link } from "react-router-dom";
+import { useCart } from "./CartContext";
+import { useWishlist } from "./WishlistContext";
 
 export default function LatestProducts({ title }) {
   const [hovered, setHovered] = useState(null);
-
+  const { addToCart } = useCart();
+  const { addToWishlist, isInWishlist, removeFromWishlist } = useWishlist();
   return (
     <div className="w-full max-w-7xl mx-auto my-12">
       <h2 className="text-4xl font-bold text-center mb-8">{title}</h2>
@@ -37,7 +41,10 @@ export default function LatestProducts({ title }) {
                     onMouseEnter={() => setHovered(product.id)}
                     onMouseLeave={() => setHovered(null)}
                   >
-                    <div className="relative w-55 h-55 mb-4 mx-auto flex items-center justify-center">
+                    <Link
+                      className="relative w-55 h-55 mb-4 mx-auto flex items-center justify-center"
+                      to={`/details/${product.id}`}
+                    >
                       <img
                         loading="lazy"
                         src={product.cover}
@@ -58,7 +65,7 @@ export default function LatestProducts({ title }) {
                             : "opacity-0 scale-105"
                         }`}
                       />
-                    </div>
+                    </Link>
                     <div
                       className={`absolute top-0 right-3 transition-all duration-300 z-10 ${
                         hovered === product.id
@@ -66,11 +73,19 @@ export default function LatestProducts({ title }) {
                           : "-translate-y-8 opacity-0"
                       }`}
                     >
-                      <button className="bg-transparent border border-gray-300 rounded-full p-2 shadow hover:text-white hover:bg-[#00A297] transition duration-300">
-                        <FontAwesomeIcon
-                          icon={farHeart}
-                          className="transition duration-300"
-                        />
+                      <button
+                        onClick={() =>
+                          isInWishlist(product.id)
+                            ? removeFromWishlist(product.id)
+                            : addToWishlist(product)
+                        }
+                        className={`bg-transparent border rounded-full p-2 shadow transition duration-300 ${
+                          isInWishlist(product.id)
+                            ? " hover:text-white hover:bg-[red] border-gray-300"
+                            : "border-gray-300 hover:bg-[#00A297] hover:text-white"
+                        }`}
+                      >
+                        <FontAwesomeIcon icon={farHeart} />
                       </button>
                     </div>
                     <div className="flex items-center mb-2">
@@ -92,7 +107,10 @@ export default function LatestProducts({ title }) {
                     <div className="text-[#00A297] font-bold text-lg mb-3">
                       ${product.discount || product.descount}
                     </div>
-                    <button className="w-full py-2 rounded bg-gray-100 font-semibold text-gray-800 hover:bg-[#00A297] hover:text-white transition mb-2">
+                    <button
+                      onClick={() => addToCart(product)}
+                      className="w-full py-2 rounded bg-gray-100 font-semibold text-gray-800 hover:bg-[#00A297] hover:text-white transition mb-2"
+                    >
                       ADD TO CART
                     </button>
                   </div>

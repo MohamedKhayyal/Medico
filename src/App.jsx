@@ -9,9 +9,13 @@ import Home from "./pages/home/Home";
 import ContactUs from "./pages/contact/ContactUs";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import Medcine from "./pages/products/Medcine";
+import Details from "./pages/details/Details";
+import { CartProvider } from "./components/CartContext";
+import Cart from "./pages/cart/Cart";
+import Wishlist from "./pages/wishlist/Wishlist";
 export default function App() {
   return (
-    <div>
+    <CartProvider>
       <ScrollToTopButton />
       <BrowserRouter>
         <Navbar />
@@ -35,10 +39,13 @@ export default function App() {
           <Route path="/" index element={<Home />} />
           <Route path="contact" index element={<ContactUs />} />
           <Route path="medicines" index element={<Medcine />} />
+          <Route path="/details/:id" element={<Details />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<Wishlist />} />
         </Routes>
         <ToastContainer />
         <Footer />
       </BrowserRouter>
-    </div>
+    </CartProvider>
   );
 }
