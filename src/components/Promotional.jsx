@@ -3,6 +3,7 @@ import image from "../assets/parallax_img.jpg";
 import banner1 from "../assets/cms-banner-1.jpg";
 import banner2 from "../assets/cms-banner-2.jpg";
 import banner3 from "../assets/cms-banner-3.jpg";
+import { useNavigate } from "react-router-dom";
 
 export default function Promotional() {
   const banar = [
@@ -10,9 +11,8 @@ export default function Promotional() {
     { banner: banner2, discount: "15%", title: "Stereo Zoom\nMicroscope" },
     { banner: banner3, discount: "20%", title: "New Forehead\nThermometer" },
   ];
-
+  const Navigate = useNavigate();
   const [offsetY, setOffsetY] = useState(0);
-
   const handleScroll = () => {
     setOffsetY(window.scrollY);
   };
@@ -47,7 +47,13 @@ export default function Promotional() {
             <p className="text-base md:text-lg text-gray-700 mb-8 drop-shadow">
               Lorem Ipsum is simply the printing and typesetting industry
             </p>
-            <button className="bg-[#00A297] hover:bg-[#0b0b0b] text-white font-bold px-8 py-4 rounded transition shadow text-lg w-48">
+            <button
+              onClick={() => {
+                window.scrollTo(0, 0);
+                Navigate("/medicines");
+              }}
+              className="bg-[#00A297] hover:bg-[#0b0b0b] text-white font-bold px-8 py-4 rounded transition shadow text-lg w-48"
+            >
               SHOP NOW
             </button>
           </div>
@@ -68,7 +74,13 @@ export default function Promotional() {
               <h3 className="text-base sm:text-2xl md:text-2xl font-bold mb-4 text-gray-900 leading-snug text-right whitespace-pre-line">
                 {item.title}
               </h3>
-              <button className="text-[#00A297] cursor-pointer font-semibold px-1 sm:px-1 py-1 sm:py-0.5 border-b-1 border-[#00A297] hover:border-transparent transition-all duration-300 text-sm sm:text-base">
+              <button
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  Navigate("/medicines");
+                }}
+                className="text-[#00A297] cursor-pointer font-semibold px-1 sm:px-1 py-1 sm:py-0.5 border-b-1 border-[#00A297] hover:border-transparent transition-all duration-300 text-sm sm:text-base"
+              >
                 SHOP NOW
               </button>
             </div>

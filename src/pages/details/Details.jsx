@@ -3,9 +3,15 @@ import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLock,
+  faTruck,
+  faRotateLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import LatestProducts from "../../components/LatestProducts";
 import { useCart } from "../../components/CartContext";
+import StarRating from "../../components/StarRating";
+import Links from "../../components/Links";
 
 export default function Details() {
   const { id } = useParams();
@@ -41,22 +47,12 @@ export default function Details() {
 
   return (
     <>
-      <div className="w-full flex justify-between items-center mb-10 bg-[#eaf7f7] px-4 md:px-16 lg:px-24 xl:px-32 py-5">
-        <h1 className="text-3xl font-bold">Details</h1>
-        <nav className="text-gray-600">
-          <Link to="/" className="mr-2 hover:underline text-black">
-            Home
-          </Link>
-          <span className="mx-1">|</span>
-          <Link to="/details/:id" className="ml-2 hover:underline">
-            Details
-          </Link>
-        </nav>
-      </div>
+      <Links page={"Details"} location={"Details"} linkTo={`/details/${id}`} />
       <div className="flex flex-col md:flex-row gap-8 p-8 max-w-6xl mx-auto">
         {/* Images */}
         <div className="flex flex-col gap-4 w-full md:w-1/2">
           <img
+            loading="lazy"
             src={mainImage}
             alt={product.name}
             className="w-full rounded-lg border"
@@ -66,6 +62,7 @@ export default function Details() {
               .filter(Boolean)
               .map((img, idx) => (
                 <img
+                  loading="lazy"
                   key={idx}
                   src={img}
                   alt={`thumb-${idx}`}
@@ -79,17 +76,7 @@ export default function Details() {
         </div>
         {/* Details */}
         <div className="flex-1">
-          <div className="flex items-center mb-2">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <FontAwesomeIcon
-                key={i}
-                icon={faStar}
-                className={`w-5 h-5 ${
-                  i < (product.star || 0) ? "text-yellow-400" : "text-gray-300"
-                }`}
-              />
-            ))}
-          </div>
+          <StarRating product={product.star} />
           <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
           <div className="mb-4 text-gray-600">{product.description}</div>
           <div className="mb-2">
@@ -156,29 +143,10 @@ export default function Details() {
       <div className="max-w-6xl mx-auto mt-8 mb-10">
         <div className="bg-[#fafafa] rounded shadow-sm divide-y divide-gray-200">
           <div className="flex items-center px-6 py-4">
-            <span className="mr-4 text-[#00A297]">
-              {/* Lock Icon */}
-              <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-                <rect width="24" height="24" fill="none" />
-                <path
-                  d="M7 10V7a5 5 0 0 1 10 0v3"
-                  stroke="#00A297"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <rect
-                  x="5"
-                  y="10"
-                  width="14"
-                  height="10"
-                  rx="2"
-                  stroke="#00A297"
-                  strokeWidth="2"
-                />
-                <circle cx="12" cy="16" r="1" fill="#00A297" />
-              </svg>
-            </span>
+            <FontAwesomeIcon
+              icon={faLock}
+              className="text-[#00A297] text-2xl mr-4"
+            />
             <div>
               <div className="font-semibold">Security policy</div>
               <div className="text-gray-500 text-sm">
@@ -187,21 +155,10 @@ export default function Details() {
             </div>
           </div>
           <div className="flex items-center px-6 py-4">
-            <span className="mr-4 text-[#00A297]">
-              {/* Delivery Icon */}
-              <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-                <rect width="24" height="24" fill="none" />
-                <path
-                  d="M3 17V7a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v10M16 17h2a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2h-2"
-                  stroke="#00A297"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <circle cx="7.5" cy="17.5" r="1.5" fill="#00A297" />
-                <circle cx="16.5" cy="17.5" r="1.5" fill="#00A297" />
-              </svg>
-            </span>
+            <FontAwesomeIcon
+              icon={faTruck}
+              className="text-[#00A297] text-2xl mr-4"
+            />
             <div>
               <div className="font-semibold">Delivery policy</div>
               <div className="text-gray-500 text-sm">
@@ -210,36 +167,10 @@ export default function Details() {
             </div>
           </div>
           <div className="flex items-center px-6 py-4">
-            <span className="mr-4 text-[#00A297]">
-              {/* Return Icon */}
-              <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-                <rect width="24" height="24" fill="none" />
-                <path
-                  d="M3 12v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
-                  stroke="#00A297"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M16 6V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"
-                  stroke="#00A297"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <rect
-                  x="8"
-                  y="10"
-                  width="8"
-                  height="6"
-                  rx="1"
-                  stroke="#00A297"
-                  strokeWidth="2"
-                />
-                <circle cx="12" cy="13" r="1" fill="#00A297" />
-              </svg>
-            </span>
+            <FontAwesomeIcon
+              icon={faRotateLeft}
+              className="text-[#00A297] text-2xl mr-4"
+            />
             <div>
               <div className="font-semibold">Return policy</div>
               <div className="text-gray-500 text-sm">

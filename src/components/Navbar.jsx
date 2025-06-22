@@ -25,7 +25,6 @@ export default function Navbar() {
   const { cart } = useCart();
   const { wishlist } = useWishlist();
   const [search, setSearch] = useState("");
-
   const handleSearch = (e) => {
     e.preventDefault();
     if (search.trim()) {
@@ -47,7 +46,7 @@ export default function Navbar() {
         className="hover:text-[#00A297] transition-colors duration-300 cursor-pointer relative"
       >
         <FontAwesomeIcon icon={faCartShopping} />
-        {cart.length > 0 && (
+        {user && cart.length > 0 && (
           <span className="absolute -top-2 -right-3 text-xs bg-[#00A297] text-white rounded-full w-5 h-5 flex items-center justify-center">
             {cart.length}
           </span>

@@ -1,8 +1,9 @@
-import { Link,  useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import { toast } from "react-toastify";
+import Links from "../../components/Links";
 
 export default function ContactUs() {
   const Navigate = useNavigate();
@@ -57,22 +58,10 @@ export default function ContactUs() {
 
   return (
     <>
-      <div className="w-full flex justify-between items-center mb-10 bg-[#eaf7f7] px-4 md:px-16 lg:px-24 xl:px-32 py-5">
-        <h1 className="text-3xl font-bold">Contact us</h1>
-        <nav className="text-gray-600">
-          <Link to="/" className="mr-2 hover:underline text-black">
-            Home
-          </Link>
-          <span className="mx-1">|</span>
-          <Link to="/contact" className="ml-2 hover:underline">
-            Contact us
-          </Link>
-        </nav>
-      </div>
+      <Links page={"Contact us"} location={"Contact us"} linkTo={"/contact"} />
       <div className=" min-h-screen px-4 md:px-16 lg:px-24 xl:px-32 py-4">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-8">
-            {/* Sidebar: Store Information */}
             <aside className="bg-white rounded-lg shadow p-6 w-full md:w-1/3 h-fit md:sticky md:top-24 self-start">
               <h2 className="text-xl font-semibold mb-6">Store information</h2>
               <div className="flex items-start gap-3 mb-4">

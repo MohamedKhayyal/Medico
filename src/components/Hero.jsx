@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import image1 from "../assets/sample-1.jpg";
 import image2 from "../assets/sample-2.jpg";
-
+import { useNavigate } from "react-router-dom";
 const slides = [
   {
     image: image1,
@@ -20,6 +20,7 @@ const slides = [
 ];
 
 export default function Hero() {
+  const Navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const nextSlide = () => setCurrent((prev) => (prev + 1) % slides.length);
   const prevSlide = () =>
@@ -81,7 +82,10 @@ export default function Hero() {
             {slides[current].desc}
           </p>
 
-          <button className="bg-[#00A297] hover:bg-[#0d0d0d] text-white font-semibold px-6 sm:px-8 py-2 sm:py-3 rounded transition shadow cursor-pointer animate__animated animate__fadeInUp animate__delay-05s text-sm sm:text-base">
+          <button
+            onClick={() => Navigate("/medicines")}
+            className="bg-[#00A297] hover:bg-[#0d0d0d] text-white font-semibold px-6 sm:px-8 py-2 sm:py-3 rounded transition shadow cursor-pointer animate__animated animate__fadeInUp animate__delay-05s text-sm sm:text-base"
+          >
             {slides[current].button}
           </button>
         </div>

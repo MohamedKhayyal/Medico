@@ -13,6 +13,8 @@ import Details from "./pages/details/Details";
 import { CartProvider } from "./components/CartContext";
 import Cart from "./pages/cart/Cart";
 import Wishlist from "./pages/wishlist/Wishlist";
+import NotFound from "./pages/not found/NotFound";
+
 export default function App() {
   return (
     <CartProvider>
@@ -36,12 +38,13 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/" index element={<Home />} />
-          <Route path="contact" index element={<ContactUs />} />
-          <Route path="medicines" index element={<Medcine />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/medicines" element={<Medcine />} />
           <Route path="/details/:id" element={<Details />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         <ToastContainer />
         <Footer />

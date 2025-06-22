@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import mask from "../assets/sub-banner-1.jpg";
 import stethoscope from "../assets/sub-banner-2.jpg";
 
 export default function ProductBanner() {
+  const Navigate = useNavigate();
   return (
     <div className="mb-20 w-full flex flex-col lg:flex-row gap-6 px-2 sm:px-4 md:px-12 lg:px-24 xl:px-32 mt-4">
       {/* Mask Card */}
@@ -18,7 +20,10 @@ export default function ProductBanner() {
             <br />
             With Filter
           </h2>
-          <button className="bg-[#00A297] hover:bg-[#0d0d0d] text-white font-semibold px-6 sm:px-8 py-2 sm:py-3 rounded transition shadow text-sm sm:text-base">
+          <button
+            onClick={() => Navigate("/medicines")}
+            className="bg-[#00A297] hover:bg-[#0d0d0d] text-white font-semibold px-6 sm:px-8 py-2 sm:py-3 rounded transition shadow text-sm sm:text-base"
+          >
             SHOP NOW
           </button>
         </div>

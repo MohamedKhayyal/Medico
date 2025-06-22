@@ -1,19 +1,27 @@
 import { useEffect, useState } from "react";
 import { useCart } from "../../components/CartContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTrash,
   faArrowLeft,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-
+import { useAuth } from "../../components/AuthContext";
+import { toast } from "react-toastify";
+import Links from "../../components/Links";
 export default function Cart() {
   const [showAddress, setShowAddress] = useState(false);
   const { cart, removeFromCart, updateQuantity } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
   useEffect(() => {
     document.title = "Cart";
-  }, []);
+    if (!user) {
+      navigate("/login");
+      toast.warning("Please log in to view your cart");
+    }
+  }, [user, navigate]);
   const totalPrice = cart.reduce((sum, item) => {
     const price = item.discount || item.descount || item.price || 0;
     return sum + price * item.quantity;
@@ -24,18 +32,7 @@ export default function Cart() {
 
   return (
     <>
-      <div className="w-full flex justify-between items-center bg-[#eaf7f7] px-4 md:px-16 lg:px-24 xl:px-32 py-5">
-        <h1 className="text-3xl font-bold">Details</h1>
-        <nav className="text-gray-600">
-          <Link to="/" className="mr-2 hover:underline text-black">
-            Home
-          </Link>
-          <span className="mx-1">|</span>
-          <Link to="/cart" className="ml-2 hover:underline">
-            Cart
-          </Link>
-        </nav>
-      </div>
+      <Links page={"Cart"} location={"Cart"} linkTo={"/cart"} />
       <div className="flex flex-col md:flex-row py-16 max-w-6xl w-full px-6 mx-auto">
         <div className="flex-1 max-w-4xl">
           <h1 className="text-3xl font-medium mb-6">

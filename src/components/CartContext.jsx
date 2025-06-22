@@ -1,21 +1,32 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useAuth } from "./AuthContext"; // Ensure path is correct
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  // Load from localStorage initially
-  const [cart, setCart] = useState(() => {
-    const saved = localStorage.getItem("cart");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const { user, loading } = useAuth();
+  const [cart, setCart] = useState([]);
 
-  // Save to localStorage on every cart update
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+    if (user) {
+      const saved = localStorage.getItem("cart");
+      setCart(saved ? JSON.parse(saved) : []);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart, user]);
 
   const addToCart = (product, quantity = 1) => {
+    if (!user) {
+      toast.warning("Please log in to add items to cart");
+      return;
+    }
+
     setCart((prev) => {
       const idx = prev.findIndex((item) => item.id === product.id);
       if (idx !== -1) {

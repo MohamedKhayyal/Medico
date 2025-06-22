@@ -10,6 +10,7 @@ import ProductCollection from "./ProductCollection";
 import { Link } from "react-router-dom";
 import { useCart } from "./CartContext";
 import { useWishlist } from "./WishlistContext";
+import StarRating from "./StarRating";
 
 export default function LatestProducts({ title }) {
   const [hovered, setHovered] = useState(null);
@@ -88,19 +89,7 @@ export default function LatestProducts({ title }) {
                         <FontAwesomeIcon icon={farHeart} />
                       </button>
                     </div>
-                    <div className="flex items-center mb-2">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <FontAwesomeIcon
-                          key={i}
-                          icon={faStar}
-                          className={`w-5 h-5 ${
-                            i < (product.star || 0)
-                              ? "text-yellow-400"
-                              : "text-gray-300"
-                          }`}
-                        />
-                      ))}
-                    </div>
+                    <StarRating product={product.star} />
                     <div className="text-center font-medium text-gray-800 mb-1 min-h-[48px]">
                       {product.name}
                     </div>
