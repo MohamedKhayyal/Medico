@@ -22,6 +22,7 @@ export default function Details() {
   const { addToCart } = useCart();
 
   useEffect(() => {
+    document.title = "Details";
     const fetchProduct = async () => {
       try {
         const docRef = doc(db, "Medico", id);
