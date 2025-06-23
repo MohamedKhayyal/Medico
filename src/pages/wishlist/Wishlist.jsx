@@ -42,6 +42,7 @@ export default function Wishlist() {
                   className="w-full h-44 flex items-center justify-center mb-3"
                 >
                   <img
+                    loading="lazy"
                     src={product.cover || product.image1}
                     alt={product.name}
                     className="h-full object-contain"

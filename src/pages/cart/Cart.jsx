@@ -56,6 +56,7 @@ export default function Cart() {
                 <div className="flex items-center md:gap-6 gap-3">
                   <div className="cursor-pointer w-24 h-24 flex items-center justify-center border border-gray-300 rounded">
                     <img
+                      loading="lazy"
                       className="max-w-full h-full object-cover"
                       src={product.cover || product.image || product.image1}
                       alt={product.name}
