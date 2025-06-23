@@ -11,7 +11,6 @@ export default function SignUp() {
   useEffect(() => {
     document.title = "Sign Up";
   }, []);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
