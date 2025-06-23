@@ -13,8 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "./AuthContext";
 import Logout from "./Logout";
-import RenderIcons from "./RenderIcons";
-
+import RenderIcon from "./RenderIcons";
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
@@ -108,11 +107,11 @@ export default function Navbar() {
           </button>
         )}
         {/* Cart + Wishlist */}
-        <RenderIcons />
+        <RenderIcon />
       </div>
       {/* Mobile Top Row */}
       <div className="flex sm:hidden items-center justify-between w-full mt-4">
-        <RenderIcons />
+        <RenderIcon />
         <button
           onClick={() => setOpen(!open)}
           aria-label="Menu"

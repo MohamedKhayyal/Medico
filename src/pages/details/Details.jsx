@@ -22,7 +22,6 @@ export default function Details() {
   const { addToCart } = useCart();
 
   useEffect(() => {
-    document.title = "Details";
     const fetchProduct = async () => {
       try {
         const docRef = doc(db, "Medico", id);
@@ -42,6 +41,12 @@ export default function Details() {
     };
     fetchProduct();
   }, [id]);
+
+  useEffect(() => {
+    if (product?.name) {
+      document.title = product.name;
+    }
+  }, [product]);
 
   if (loading) return <div>Loading...</div>;
   if (!product) return <div>Product not found.</div>;
