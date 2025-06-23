@@ -42,7 +42,6 @@ export default function Hero() {
           backgroundImage: `url(${slides[current].image})`,
         }}
       />
-
       {/* Arrows */}
       <button
         onClick={prevSlide}
@@ -53,7 +52,6 @@ export default function Hero() {
           <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z" />
         </svg>
       </button>
-
       <button
         onClick={nextSlide}
         className="absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-30 bg-white border-2 border-[#00A297] text-[#00A297] hover:bg-[#00A297] hover:text-white transition rounded-full w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center shadow opacity-80 group-hover:opacity-100"
@@ -63,7 +61,6 @@ export default function Hero() {
           <path d="M10 6l-1.41 1.41L13.17 12l-4.58 4.59L10 18l6-6z" />
         </svg>
       </button>
-
       {/* Slide Content */}
       <div className="relative z-20 px-2 sm:px-4 md:px-12 lg:px-24 xl:px-32 w-full max-w-7xl flex justify-center md:justify-end">
         <div
@@ -90,7 +87,6 @@ export default function Hero() {
           </button>
         </div>
       </div>
-
       {/* Slide Dots */}
       <div className="absolute bottom-3 sm:bottom-6 w-full flex justify-center z-30">
         <div className="flex gap-2">

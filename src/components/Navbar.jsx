@@ -3,10 +3,8 @@ import logo from "../assets/logo-1743073720.svg";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCartShopping,
   faMagnifyingGlass,
   faBars,
-  faHeart,
   faHouse,
   faPills,
   faPhone,
@@ -15,15 +13,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "./AuthContext";
 import Logout from "./Logout";
-import { useCart } from "./CartContext";
-import { useWishlist } from "./WishlistContext";
+import RenderIcons from "./renderIcons";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { cart } = useCart();
-  const { wishlist } = useWishlist();
   const [search, setSearch] = useState("");
   const handleSearch = (e) => {
     e.preventDefault();
@@ -39,40 +34,12 @@ export default function Navbar() {
     };
   }, [open]);
 
-  const renderIcons = (
-    <div className="flex gap-6 text-[20px] px-2 relative">
-      <Link
-        to="/cart"
-        className="hover:text-[#00A297] transition-colors duration-300 cursor-pointer relative"
-      >
-        <FontAwesomeIcon icon={faCartShopping} />
-        {user && cart.length > 0 && (
-          <span className="absolute -top-2 -right-3 text-xs bg-[#00A297] text-white rounded-full w-5 h-5 flex items-center justify-center">
-            {cart.length}
-          </span>
-        )}
-      </Link>
-      <Link
-        to="/wishlist"
-        className="hover:text-[#00A297] transition-colors duration-300 cursor-pointer relative"
-      >
-        <FontAwesomeIcon icon={faHeart} />
-        {wishlist.length > 0 && (
-          <span className="absolute -top-2 -right-3 text-xs bg-[#00A297] text-white rounded-full w-5 h-5 flex items-center justify-center">
-            {wishlist.length}
-          </span>
-        )}
-      </Link>
-    </div>
-  );
-
   return (
     <nav className=" bg-white border-b border-gray-300 px-4 md:px-16 lg:px-24 xl:px-32 py-4 flex flex-wrap items-center justify-between gap-5 transition-all">
       {/* Logo */}
       <Link to="/" className="flex-shrink-0">
         <img className="h-9 w-auto" src={logo} alt="Logo" />
       </Link>
-
       {/* Search Bar */}
       <div className="flex items-center flex-1 justify-center mx-4">
         <form
@@ -96,7 +63,6 @@ export default function Navbar() {
           </button>
         </form>
       </div>
-
       {/* Desktop Nav */}
       <div className="hidden sm:flex items-center gap-4 md:gap-8 flex-wrap">
         <NavLink
@@ -141,14 +107,12 @@ export default function Navbar() {
             Login
           </button>
         )}
-
         {/* Cart + Wishlist */}
-        {renderIcons}
+        <RenderIcons />
       </div>
-
       {/* Mobile Top Row */}
       <div className="flex sm:hidden items-center justify-between w-full mt-4">
-        {renderIcons}
+        <RenderIcons />
         <button
           onClick={() => setOpen(!open)}
           aria-label="Menu"
@@ -190,7 +154,6 @@ export default function Navbar() {
           <FontAwesomeIcon icon={faPills} />
           Medicines
         </NavLink>
-
         <NavLink
           to="/contact"
           onClick={() => setOpen(false)}

@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { useAuth } from "./AuthContext"; // Ensure path is correct
+import { useAuth } from "./AuthContext";
 
 const CartContext = createContext();
 
