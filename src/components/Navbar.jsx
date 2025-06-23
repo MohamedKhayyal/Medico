@@ -13,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "./AuthContext";
 import Logout from "./Logout";
-import RenderIcons from "./renderIcons";
+import RenderIcons from "./RenderIcons";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
