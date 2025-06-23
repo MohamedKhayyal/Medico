@@ -2,5 +2,5 @@
   "routes": [
     { "scr": "/", "dest": "/" },
     { "scr": "/test", "dest": "/" }
-  ]
+  ] 
 }
