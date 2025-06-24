@@ -42,20 +42,20 @@ export default function DealOfTheDay() {
               {products.map((product, idx) => (
                 <SwiperSlide key={product.id}>
                   <div
-                    className="flex flex-col md:flex-row items-center border border-gray-200 bg-white rounded-lg p-6 h-[420px] min-h-[420px] relative group transition-shadow hover:shadow-lg"
+                    className="flex flex-col md:flex-row items-center border border-gray-200 bg-white rounded-2xl p-8 h-[420px] min-h-[420px] relative group transition-shadow hover:shadow-2xl shadow-xl duration-200"
                     style={{ height: "420px" }}
                     onMouseEnter={() => setHovered(product.id)}
                     onMouseLeave={() => setHovered(null)}
                   >
                     <Link
-                      className="w-full md:w-1/2 flex justify-center items-center mb-4 md:mb-0 relative aspect-square max-w-[200px] mx-auto"
+                      className="w-full md:w-1/2 flex justify-center items-center mb-4 md:mb-0 relative aspect-square max-w-[220px] mx-auto overflow-hidden rounded-xl bg-gradient-to-br from-[#f7fafc] to-[#e0f7fa] border border-gray-100 shadow-sm"
                       to={`/details/${product.id}`}
                     >
                       <img
                         loading="lazy"
                         src={product.cover}
                         alt={product.name || "Product"}
-                        className={`absolute inset-0 w-full h-full object-contain transition-all duration-400 ${
+                        className={`absolute inset-0 w-full h-full object-contain transition-all duration-500 ${
                           hovered === product.id
                             ? "opacity-0 scale-95"
                             : "opacity-100 scale-100"
@@ -66,7 +66,7 @@ export default function DealOfTheDay() {
                           loading="lazy"
                           src={product.image1}
                           alt={product.name}
-                          className={`absolute inset-0 w-full h-full object-contain transition-all duration-400 ${
+                          className={`absolute inset-0 w-full h-full object-contain transition-all duration-500 ${
                             hovered === product.id
                               ? "opacity-100 scale-100"
                               : "opacity-0 scale-105"
@@ -87,10 +87,10 @@ export default function DealOfTheDay() {
                             ? removeFromWishlist(product.id)
                             : addToWishlist(product)
                         }
-                        className={`bg-transparent border rounded-full p-2 shadow transition duration-300 ${
+                        className={`bg-white border rounded-full p-2 shadow-md transition duration-300 ${
                           isInWishlist(product.id)
-                            ? " hover:text-white hover:bg-[red] border-gray-300"
-                            : "border-gray-300 hover:bg-[#00A297] hover:text-white"
+                            ? "text-[red] border-[red] hover:bg-[red] hover:text-white"
+                            : "text-[#00A297] border-[#00A297] hover:bg-[#00A297] hover:text-white"
                         }`}
                       >
                         <FontAwesomeIcon icon={farHeart} />
@@ -143,7 +143,7 @@ export default function DealOfTheDay() {
                       <DealTimer timerEnd={product.timerEnd} />
                       <button
                         onClick={() => addToCart(product)}
-                        className="cursor-pointer w-full py-2 rounded bg-[#00A297] font-semibold text-white hover:bg-[#00897b] transition"
+                        className="cursor-pointer w-full py-2 rounded-xl bg-[#00A297] font-semibold text-white hover:bg-[#00897b] transition shadow focus:outline-none focus:ring-2 focus:ring-[#00A297]/30"
                       >
                         ADD TO CART
                       </button>

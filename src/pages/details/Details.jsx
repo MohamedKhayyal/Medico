@@ -61,7 +61,7 @@ export default function Details() {
             loading="lazy"
             src={mainImage}
             alt={product.name}
-            className="w-full rounded-lg border"
+            className="w-full rounded-2xl border border-gray-200 shadow-xl bg-gradient-to-br from-white to-[#e0f7fa] object-contain h-96"
           />
           <div className="flex gap-2">
             {[product.cover, product.image1, product.image2]
@@ -72,7 +72,7 @@ export default function Details() {
                   key={idx}
                   src={img}
                   alt={`thumb-${idx}`}
-                  className={`w-20 h-20 object-contain border rounded cursor-pointer ${
+                  className={`w-20 h-20 object-contain border rounded-xl cursor-pointer shadow-sm transition-all duration-200 hover:scale-105 ${
                     mainImage === img ? "ring-2 ring-[#00A297]" : ""
                   }`}
                   onClick={() => setMainImage(img)}
@@ -81,16 +81,20 @@ export default function Details() {
           </div>
         </div>
         {/* Details */}
-        <div className="flex-1">
+        <div className="flex-1 bg-white rounded-2xl shadow-xl p-8 flex flex-col justify-between">
           <StarRating product={product.star} />
-          <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
-          <div className="mb-4 text-gray-600">{product.description}</div>
+          <h1 className="text-3xl font-extrabold text-[#00A297] mb-2 tracking-tight drop-shadow">
+            {product.name}
+          </h1>
+          <div className="mb-4 text-gray-600 text-base">
+            {product.description}
+          </div>
           <div className="mb-2">
             <span className="font-semibold">Brand:</span> {product.brand}
           </div>
           <div className="mb-2">
             <span className="font-semibold">Stock:</span>{" "}
-            <span className="text-[#00A297]">{product.stock}</span>
+            <span className="text-[#00A297] font-bold">{product.stock}</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
             <div
@@ -103,18 +107,18 @@ export default function Details() {
           <div className="mb-2">
             <span className="font-semibold">Price:</span>
             {product.price && (
-              <span className="line-through text-gray-400">
+              <span className="line-through text-gray-400 ml-2">
                 ${product.price}
               </span>
             )}
-            <span className="text-[#00A297] font-bold text-xl ml-2">
+            <span className="text-[#00A297] font-bold text-2xl ml-2">
               ${product.discount || product.descount}
             </span>
           </div>
-          <div className="flex items-center gap-4 mt-4">
-            <div className="flex items-center border rounded overflow-hidden w-20 h-12 bg-white">
+          <div className="flex items-center gap-4 mt-6">
+            <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden w-24 h-12 bg-white shadow">
               <button
-                className="flex-1 h-full flex items-center justify-center text-xl font-bold text-gray-700 hover:bg-[#00A297]"
+                className="flex-1 h-full flex items-center justify-center text-xl font-bold text-gray-700 hover:bg-[#00A297] hover:text-white transition"
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                 aria-label="Decrease quantity"
                 type="button"
@@ -123,12 +127,12 @@ export default function Details() {
               </button>
               <input
                 type="text"
-                className="w-8 text-center border-0 focus:ring-0 outline-none text-lg font-semibold"
+                className="w-8 text-center border-0 focus:ring-0 outline-none text-lg font-semibold bg-transparent"
                 value={quantity}
                 readOnly
               />
               <button
-                className="flex-1 h-full flex items-center justify-center text-xl font-bold text-gray-700 hover:bg-[#00A297]"
+                className="flex-1 h-full flex items-center justify-center text-xl font-bold text-gray-700 hover:bg-[#00A297] hover:text-white transition"
                 onClick={() => setQuantity((q) => q + 1)}
                 aria-label="Increase quantity"
                 type="button"
@@ -138,7 +142,7 @@ export default function Details() {
             </div>
             <button
               onClick={() => addToCart(product)}
-              className="flex-1 px-6 py-2 bg-[#00A297] text-white rounded font-semibold hover:bg-[#00897b] transition h-12"
+              className="flex-1 px-6 py-3 bg-[#00A297] text-white rounded-xl font-bold hover:bg-[#00897b] transition h-12 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#00A297]/40"
             >
               ADD TO CART
             </button>
@@ -147,7 +151,7 @@ export default function Details() {
       </div>
       {/* Reassurance Policies */}
       <div className="max-w-6xl mx-auto mt-8 mb-10">
-        <div className="bg-[#fafafa] rounded shadow-sm divide-y divide-gray-200">
+        <div className="bg-[#fafafa] rounded-2xl shadow-xl divide-y divide-gray-200">
           <div className="flex items-center px-6 py-4">
             <FontAwesomeIcon
               icon={faLock}

@@ -33,19 +33,21 @@ export default function SignUp() {
     <div className="flex h-[700px] w-full mb-10">
       <div className="w-full hidden md:inline-block">
         <img
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover rounded-l-2xl shadow-xl"
           src={image}
           alt="leftSideImage"
           loading="lazy"
         />
       </div>
-      <div className="w-full flex flex-col items-center justify-center">
+      <div className="w-full flex flex-col items-center justify-center bg-white rounded-r-2xl shadow-xl">
         <form
           onSubmit={handleSignUp}
           className="md:w-96 w-80 flex flex-col items-center justify-center"
         >
-          <h2 className="text-4xl text-gray-900 font-medium">Sign Up</h2>
-          <p className="text-sm text-gray-500/90 mt-3">
+          <h2 className="text-4xl text-[#00A297] font-extrabold mb-2 tracking-tight drop-shadow">
+            Sign Up
+          </h2>
+          <p className="text-sm text-gray-500/90 mt-3 mb-2">
             Create your account to get started
           </p>
           <div className="flex items-center my-4 w-full bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
@@ -83,13 +85,16 @@ export default function SignUp() {
           </div>
           <button
             type="submit"
-            className="mt-8 w-full h-11 rounded-full text-white bg-[#00A297] hover:opacity-90 transition-opacity"
+            className="mt-8 w-full h-11 rounded-full text-white bg-[#00A297] hover:bg-[#00897b] font-bold text-lg shadow-lg transition"
           >
             Create Account
           </button>
           <p className="text-gray-500/90 text-sm mt-4">
             Already have an account?{" "}
-            <Link className="text-indigo-400 hover:underline" to={"/login"}>
+            <Link
+              className="text-[#00A297] hover:underline font-semibold"
+              to={"/login"}
+            >
               Log In
             </Link>
           </p>

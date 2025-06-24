@@ -27,16 +27,18 @@ export default function SidebarFilters({
 }) {
   return (
     <aside
-      className={`z-40 bg-white border rounded-lg p-0 shadow w-72 fixed top-0 left-0 h-full transition-transform duration-300 lg:static lg:top-auto lg:left-auto lg:h-auto lg:sticky lg:self-start lg:mt-0 ${
+      className={`z-40 bg-white border border-gray-200 rounded-2xl p-0 shadow-xl w-80 fixed top-0 left-0 h-full transition-transform duration-300 lg:static lg:top-auto lg:left-auto lg:h-auto lg:sticky lg:self-start lg:mt-0 ${
         sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
       } ${sidebarOpen ? "block" : "hidden"} lg:block`}
       style={{ minWidth: 320, top: "1rem" }}
     >
       <div
-        className="flex items-center justify-between border-b px-6 py-4"
+        className="flex items-center justify-between border-b px-8 py-6"
         style={{ borderColor: "#00A297" }}
       >
-        <span className="font-bold text-xl tracking-wide">FILTERS</span>
+        <span className="font-extrabold text-2xl tracking-wide text-[#00A297] drop-shadow">
+          FILTERS
+        </span>
         <button
           className="text-sm text-[#00A297] font-semibold hover:underline lg:hidden"
           onClick={() => setSidebarOpen(false)}
@@ -50,11 +52,11 @@ export default function SidebarFilters({
           CLEAR
         </button>
       </div>
-      <div className="px-6 py-4 flex flex-col gap-6">
+      <div className="px-8 py-6 flex flex-col gap-8">
         <div>
-          <div className="font-semibold mb-2">Sort by Brand</div>
+          <div className="font-semibold mb-2 text-gray-800">Sort by Brand</div>
           <select
-            className="w-full border rounded px-2 py-2"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-[#00A297] focus:ring-2 focus:ring-[#00A297]/30 transition"
             value={selectedBrand}
             onChange={(e) => setSelectedBrand(e.target.value)}
           >
@@ -67,9 +69,9 @@ export default function SidebarFilters({
           </select>
         </div>
         <div>
-          <div className="font-semibold mb-2">Sort By</div>
-          <div className="flex flex-col gap-2">
-            <label className="flex items-center gap-2 cursor-pointer">
+          <div className="font-semibold mb-2 text-gray-800">Sort By</div>
+          <div className="flex flex-col gap-3">
+            <label className="flex items-center gap-2 cursor-pointer text-gray-700 font-medium">
               <input
                 type="radio"
                 name="sort"
@@ -80,7 +82,7 @@ export default function SidebarFilters({
               />
               Price Low to High
             </label>
-            <label className="flex items-center gap-2 cursor-pointer">
+            <label className="flex items-center gap-2 cursor-pointer text-gray-700 font-medium">
               <input
                 type="radio"
                 name="sort"
@@ -91,7 +93,7 @@ export default function SidebarFilters({
               />
               Price High to Low
             </label>
-            <label className="flex items-center gap-2 cursor-pointer">
+            <label className="flex items-center gap-2 cursor-pointer text-gray-700 font-medium">
               <input
                 type="radio"
                 name="sort"

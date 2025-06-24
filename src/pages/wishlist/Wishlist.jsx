@@ -16,39 +16,44 @@ export default function Wishlist() {
     <>
       <Links page={"Wishlist"} location={"Wishlist"} linkTo={"/wishlist"} />
       <div className="px-4 md:px-16 lg:px-24 xl:px-32 py-10">
-        <h1 className="text-3xl font-bold mb-6">Your Wishlist</h1>
+        <h1 className="text-3xl font-extrabold text-[#00A297] mb-8 tracking-tight drop-shadow">
+          Your Wishlist
+        </h1>
 
         {wishlist.length === 0 ? (
-          <div className="text-center text-gray-500">
+          <div className="text-center text-gray-500 bg-white rounded-2xl shadow p-10">
             Your wishlist is empty. <br />
-            <Link to="/medicines" className="text-[#00A297] hover:underline">
+            <Link
+              to="/medicines"
+              className="text-[#00A297] hover:underline font-semibold"
+            >
               Browse products
             </Link>
           </div>
         ) : (
           <div
-            className="grid gap-6"
+            className="grid gap-8"
             style={{
-              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))",
             }}
           >
             {wishlist.map((product) => (
               <div
                 key={product.id}
-                className="border rounded-lg p-4 bg-white relative flex flex-col items-center"
+                className="border border-gray-200 rounded-2xl p-6 bg-white relative flex flex-col items-center shadow-xl hover:shadow-2xl transition group"
               >
                 <Link
                   to={`/details/${product.id}`}
-                  className="w-full h-44 flex items-center justify-center mb-3"
+                  className="w-full h-48 flex items-center justify-center mb-4 overflow-hidden rounded-xl bg-gradient-to-br from-[#f7fafc] to-[#e0f7fa] border border-gray-100 shadow-sm"
                 >
                   <img
                     loading="lazy"
                     src={product.cover || product.image1}
                     alt={product.name}
-                    className="h-full object-contain"
+                    className="h-full object-contain transition-transform duration-300 group-hover:scale-105"
                   />
                 </Link>
-                <div className="text-center mb-1 font-semibold">
+                <div className="text-center mb-1 font-semibold text-gray-900 text-base min-h-[40px]">
                   {product.name}
                 </div>
                 <div className="flex items-center mb-1">
@@ -71,13 +76,13 @@ export default function Wishlist() {
                 <div className="flex gap-2 mt-auto w-full">
                   <button
                     onClick={() => addToCart(product)}
-                    className="flex-1 bg-[#00A297] text-white py-2 rounded hover:bg-[#00897B] transition"
+                    className="flex-1 bg-[#00A297] text-white py-2 rounded-xl font-semibold hover:bg-[#00897B] transition shadow focus:outline-none focus:ring-2 focus:ring-[#00A297]/30"
                   >
                     Add to Cart
                   </button>
                   <button
                     onClick={() => removeFromWishlist(product.id)}
-                    className="bg-gray-100 p-2 rounded hover:bg-red-100 transition"
+                    className="bg-gray-100 p-2 rounded-xl hover:bg-red-100 transition shadow focus:outline-none focus:ring-2 focus:ring-red-400/30"
                   >
                     <FontAwesomeIcon icon={faTrash} className="text-red-500" />
                   </button>

@@ -59,15 +59,17 @@ export default function ContactUs() {
   return (
     <>
       <Links page={"Contact us"} location={"Contact us"} linkTo={"/contact"} />
-      <div className=" min-h-screen px-4 md:px-16 lg:px-24 xl:px-32 py-4">
+      <div className="min-h-screen px-4 md:px-16 lg:px-24 xl:px-32 py-4 bg-gradient-to-br from-white via-[#f7fafc] to-[#e0f7fa]">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-8">
-            <aside className="bg-white rounded-lg shadow p-6 w-full md:w-1/3 h-fit md:sticky md:top-24 self-start">
-              <h2 className="text-xl font-semibold mb-6">Store information</h2>
+            <aside className="bg-white rounded-2xl shadow-xl p-8 w-full md:w-1/3 h-fit md:sticky md:top-24 self-start border border-gray-200">
+              <h2 className="text-2xl font-extrabold text-[#00A297] mb-6 tracking-tight drop-shadow">
+                Store information
+              </h2>
               <div className="flex items-start gap-3 mb-4">
-                <span className="text-teal-500 text-2xl">📍</span>
+                <span className="text-[#00A297] text-2xl">📍</span>
                 <div>
-                  <div className="font-medium">Demo Store</div>
+                  <div className="font-semibold">Demo Store</div>
                   <div>507-Union Trade Center</div>
                   <div>123456</div>
                   <div>France</div>
@@ -75,17 +77,17 @@ export default function ContactUs() {
               </div>
               <hr className="my-4" />
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-teal-500 text-2xl">📞</span>
+                <span className="text-[#00A297] text-2xl">📞</span>
                 <div>
-                  <div className="font-medium">Call us:</div>
+                  <div className="font-semibold">Call us:</div>
                   <div>(+91) 9876-543-210</div>
                 </div>
               </div>
               <hr className="my-4" />
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-teal-500 text-2xl">✉️</span>
+                <span className="text-[#00A297] text-2xl">✉️</span>
                 <div>
-                  <div className="font-medium">Email us:</div>
+                  <div className="font-semibold">Email us:</div>
                   <div className="break-all">demo@example.com</div>
                 </div>
               </div>
@@ -93,17 +95,20 @@ export default function ContactUs() {
 
             {/* Contact Form */}
             <form
-              className="bg-white rounded-lg shadow p-6 flex-1"
+              className="bg-white rounded-2xl shadow-xl p-8 flex-1 border border-gray-200"
               onSubmit={handleSubmit}
             >
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-4">
-                <label className="font-medium md:text-right" htmlFor="subject">
+                <label
+                  className="font-semibold md:text-right"
+                  htmlFor="subject"
+                >
                   Subject
                 </label>
                 <select
                   id="subject"
                   name="subject"
-                  className="col-span-3 border rounded px-3 py-2 focus:outline-teal-400"
+                  className="col-span-3 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-[#00A297] focus:ring-2 focus:ring-[#00A297]/30 transition"
                   value={formData.subject}
                   onChange={handleChange}
                 >
@@ -113,7 +118,7 @@ export default function ContactUs() {
                 </select>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-4">
-                <label className="font-medium md:text-right" htmlFor="email">
+                <label className="font-semibold md:text-right" htmlFor="email">
                   Email address
                 </label>
                 <input
@@ -121,7 +126,7 @@ export default function ContactUs() {
                   name="email"
                   type="email"
                   placeholder="your@email.com"
-                  className="col-span-3 border rounded px-3 py-2 focus:outline-teal-400"
+                  className="col-span-3 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-[#00A297] focus:ring-2 focus:ring-[#00A297]/30 transition"
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -129,7 +134,7 @@ export default function ContactUs() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center mb-4">
                 <label
-                  className="font-medium md:text-right"
+                  className="font-semibold md:text-right"
                   htmlFor="attachment"
                 >
                   Attachment
@@ -143,7 +148,7 @@ export default function ContactUs() {
                   />
                   <label
                     htmlFor="attachment"
-                    className="bg-[#00A297] text-white px-4 py-2 rounded cursor-pointer hover:bg-teal-600"
+                    className="bg-[#00A297] text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-[#00897b] transition shadow"
                   >
                     CHOOSE FILE
                   </label>
@@ -152,7 +157,7 @@ export default function ContactUs() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-start mb-4">
                 <label
-                  className="font-medium md:text-right mt-2"
+                  className="font-semibold md:text-right mt-2"
                   htmlFor="message"
                 >
                   Message
@@ -162,7 +167,7 @@ export default function ContactUs() {
                   name="message"
                   placeholder="How can we help?"
                   rows={4}
-                  className="col-span-3 border rounded px-3 py-2 focus:outline-teal-400"
+                  className="col-span-3 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-[#00A297] focus:ring-2 focus:ring-[#00A297]/30 transition"
                   value={formData.message}
                   onChange={handleChange}
                   required
@@ -173,7 +178,7 @@ export default function ContactUs() {
                   id="agree"
                   name="agree"
                   type="checkbox"
-                  className="mr-2"
+                  className="mr-2 accent-[#00A297]"
                   checked={formData.agree}
                   onChange={handleChange}
                   required
@@ -186,7 +191,7 @@ export default function ContactUs() {
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  className="bg-[#00A297] hover:bg-[#0d0d0d] text-white font-semibold px-8 py-2 rounded"
+                  className="bg-[#00A297] hover:bg-[#00897b] text-white font-bold px-8 py-3 rounded-xl shadow-lg text-lg focus:outline-none focus:ring-2 focus:ring-[#00A297]/40 transition"
                 >
                   SEND
                 </button>

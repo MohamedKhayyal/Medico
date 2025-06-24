@@ -10,15 +10,36 @@ import {
   faPhone,
   faRightToBracket,
   faXmark,
+  faGauge,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "./AuthContext";
 import Logout from "./Logout";
 import RenderIcon from "./RenderIcons";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase/firebaseConfig";
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-  const { user } = useAuth();
   const [search, setSearch] = useState("");
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkAdmin = async () => {
+      if (user) {
+        const docRef = doc(db, "admins", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists() && docSnap.data().role === "admin") {
+          setIsAdmin(true);
+        } else {
+          setIsAdmin(false);
+        }
+      }
+    };
+    checkAdmin();
+  }, [user]);
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (search.trim()) {
@@ -26,6 +47,7 @@ export default function Navbar() {
       setSearch("");
     }
   };
+
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -34,12 +56,12 @@ export default function Navbar() {
   }, [open]);
 
   return (
-    <nav className=" bg-white border-b border-gray-300 px-4 md:px-16 lg:px-24 xl:px-32 py-4 flex flex-wrap items-center justify-between gap-5 transition-all">
+    <nav className="bg-white border-b border-gray-300 px-4 md:px-16 lg:px-24 xl:px-32 py-4 flex flex-wrap items-center justify-between gap-5 transition-all">
       {/* Logo */}
       <Link to="/" className="flex-shrink-0">
         <img className="h-9 w-auto" src={logo} alt="Logo" />
       </Link>
-      {/* Search Bar */}
+      {/* Search */}
       <div className="flex items-center flex-1 justify-center mx-4">
         <form
           onSubmit={handleSearch}
@@ -64,28 +86,24 @@ export default function Navbar() {
       </div>
       {/* Desktop Nav */}
       <div className="hidden sm:flex items-center gap-4 md:gap-8 flex-wrap">
-        <NavLink
-          to="/"
-          className="flex items-center gap-2 text-sm whitespace-nowrap"
-        >
+        <NavLink to="/" className="flex items-center gap-2 text-sm">
           <FontAwesomeIcon icon={faHouse} />
           Home
         </NavLink>
-        <NavLink
-          to="/medicines"
-          className="flex items-center gap-2 text-sm whitespace-nowrap"
-        >
+        <NavLink to="/medicines" className="flex items-center gap-2 text-sm">
           <FontAwesomeIcon icon={faPills} />
           Medicines
         </NavLink>
-        <NavLink
-          to="/contact"
-          className="flex items-center gap-2 text-sm whitespace-nowrap"
-        >
+        <NavLink to="/contact" className="flex items-center gap-2 text-sm">
           <FontAwesomeIcon icon={faPhone} />
           Contact
         </NavLink>
-
+        {isAdmin && (
+          <NavLink to="/admin" className="flex items-center gap-2 text-sm">
+            <FontAwesomeIcon icon={faGauge} />
+            Dashboard
+          </NavLink>
+        )}
         {user ? (
           <Logout
             className="flex items-center gap-2 px-6 py-2 text-white rounded-full transition-colors duration-300"
@@ -106,7 +124,6 @@ export default function Navbar() {
             Login
           </button>
         )}
-        {/* Cart + Wishlist */}
         <RenderIcon />
       </div>
       {/* Mobile Top Row */}
@@ -120,7 +137,6 @@ export default function Navbar() {
           <FontAwesomeIcon icon={faBars} size="lg" />
         </button>
       </div>
-
       {/* Mobile Menu */}
       <div
         className={`fixed inset-0 z-50 transition-transform duration-300 overflow-y-auto ${
@@ -135,7 +151,6 @@ export default function Navbar() {
         >
           <FontAwesomeIcon icon={faXmark} />
         </button>
-
         <NavLink
           to="/"
           onClick={() => setOpen(false)}
@@ -144,7 +159,6 @@ export default function Navbar() {
           <FontAwesomeIcon icon={faHouse} />
           Home
         </NavLink>
-
         <NavLink
           to="/medicines"
           onClick={() => setOpen(false)}
@@ -161,7 +175,16 @@ export default function Navbar() {
           <FontAwesomeIcon icon={faPhone} />
           Contact
         </NavLink>
-
+        {isAdmin && (
+          <NavLink
+            to="/admin"
+            onClick={() => setOpen(false)}
+            className="flex items-center gap-2 w-full py-2 text-lg"
+          >
+            <FontAwesomeIcon icon={faGauge} />
+            Dashboard
+          </NavLink>
+        )}
         {user ? (
           <Logout className="flex items-center gap-2 px-5 py-2 mt-4 bg-[#00A297] hover:bg-[#00897B] transition text-white rounded-full w-full justify-center text-lg" />
         ) : (

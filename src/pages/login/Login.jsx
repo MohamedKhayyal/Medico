@@ -52,23 +52,25 @@ export default function Login() {
     <div className="flex h-[700px] w-full mb-10">
       <div className="w-full hidden md:inline-block">
         <img
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover rounded-l-2xl shadow-xl"
           src={image}
           alt="leftSideImage"
           loading="lazy"
         />
       </div>
-      <div className="w-full flex flex-col items-center justify-center">
+      <div className="w-full flex flex-col items-center justify-center bg-white rounded-r-2xl shadow-xl">
         <div className="md:w-96 w-80 flex flex-col items-center justify-center">
-          <h2 className="text-4xl text-gray-900 font-medium">Login</h2>
-          <p className="text-sm text-gray-500/90 mt-3">
+          <h2 className="text-4xl text-[#00A297] font-extrabold mb-2 tracking-tight drop-shadow">
+            Login
+          </h2>
+          <p className="text-sm text-gray-500/90 mt-3 mb-2">
             Welcome back! Please sign in to continue
           </p>
 
           <button
             onClick={handleGoogleLogin}
             type="button"
-            className="w-full mt-8 bg-gray-500/10 flex items-center justify-center h-12 rounded-full cursor-pointer"
+            className="w-full mt-8 bg-gray-500/10 flex items-center justify-center h-12 rounded-full cursor-pointer border border-gray-200 shadow hover:bg-gray-100 transition"
           >
             <img
               src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/googleLogo.svg"
@@ -144,7 +146,7 @@ export default function Login() {
             </div>
             <button
               type="submit"
-              className="mt-8 w-full h-11 rounded-full text-white bg-[#00A297] hover:opacity-90 transition-opacity"
+              className="mt-8 w-full h-11 rounded-full text-white bg-[#00A297] hover:bg-[#00897b] font-bold text-lg shadow-lg transition"
             >
               Login
             </button>
@@ -152,7 +154,10 @@ export default function Login() {
 
           <p className="text-gray-500/90 text-sm mt-4">
             Don’t have an account?{" "}
-            <Link className="text-indigo-400 hover:underline" to={"/signUp"}>
+            <Link
+              className="text-[#00A297] hover:underline font-semibold"
+              to={"/signUp"}
+            >
               Sign up
             </Link>
           </p>

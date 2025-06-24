@@ -14,6 +14,10 @@ import { CartProvider } from "./components/CartContext";
 import Cart from "./pages/cart/Cart";
 import Wishlist from "./pages/wishlist/Wishlist";
 import NotFound from "./pages/not found/NotFound";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminRoute from "./components/AdminRoute";
+import AddProduct from "./components/AddProduct";
+import EditProduct from "./components/EditProduct";
 
 export default function App() {
   return (
@@ -44,6 +48,30 @@ export default function App() {
           <Route path="/details/:id" element={<Details />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/wishlist" element={<Wishlist />} />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <AdminDashboard />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/add"
+            element={
+              <AdminRoute>
+                <AddProduct />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/edit/:id"
+            element={
+              <AdminRoute>
+                <EditProduct />
+              </AdminRoute>
+            }
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <ToastContainer />
