@@ -8,6 +8,7 @@ import { useCart } from "../../components/CartContext";
 import { useWishlist } from "../../components/WishlistContext";
 import StarRating from "../../components/StarRating";
 import Links from "../../components/Links";
+import Loading from "../../components/Loading";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -85,7 +86,7 @@ export default function Medcine() {
                 />
                 <div className="flex-1 ml-0 lg:ml-0">
                   {loading ? (
-                    <div>Loading...</div>
+                    <div>{<Loading />}</div>
                   ) : filtered.length === 0 ? (
                     <div>No medicines found.</div>
                   ) : (

@@ -10,6 +10,7 @@ import DealTimer from "./DealTimer";
 import { Link } from "react-router-dom";
 import { useCart } from "./CartContext";
 import { useWishlist } from "./WishlistContext";
+import Loading from "./Loading";
 
 export default function DealOfTheDay() {
   const [hovered, setHovered] = useState(null);
@@ -22,7 +23,7 @@ export default function DealOfTheDay() {
       <ProductCollection limit={7}>
         {({ products, loading }) =>
           loading ? (
-            <div className="text-center py-12">Loading...</div>
+            <div className="text-center py-12">{<Loading />}</div>
           ) : products.length === 0 ? (
             <div className="text-center py-12 text-red-500">
               No products found.

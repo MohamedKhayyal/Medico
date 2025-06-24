@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -11,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useCart } from "./CartContext";
 import { useWishlist } from "./WishlistContext";
 import StarRating from "./StarRating";
+import Loading from "./Loading";
 
 export default function LatestProducts({ title }) {
   const [hovered, setHovered] = useState(null);
@@ -22,7 +22,7 @@ export default function LatestProducts({ title }) {
       <ProductCollection limit={9}>
         {({ products, loading }) =>
           loading ? (
-            <div className="text-center py-12">Loading...</div>
+            <div className="text-center py-12">{<Loading />}</div>
           ) : (
             <Swiper
               modules={[Navigation]}
