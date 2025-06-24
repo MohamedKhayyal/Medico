@@ -116,8 +116,8 @@ export default function Details() {
               ${product.discount || product.descount}
             </span>
           </div>
-          <div className="flex items-center gap-4 mt-6">
-            <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden w-24 h-12 bg-white shadow">
+          <div className="flex flex-col sm:flex-row items-center gap-4 mt-6 w-full">
+            <div className="flex items-center border border-gray-200 rounded-xl overflow-hidden w-24 h-12 bg-white shadow mb-3 sm:mb-0">
               <button
                 className="flex-1 h-full flex items-center justify-center text-xl font-bold text-gray-700 hover:bg-[#00A297] hover:text-white transition"
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
@@ -142,8 +142,8 @@ export default function Details() {
               </button>
             </div>
             <button
-              onClick={() => addToCart(product)}
-              className="flex-1 px-6 py-3 bg-[#00A297] text-white rounded-xl font-bold hover:bg-[#00897b] transition h-12 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#00A297]/40"
+              onClick={() => addToCart(product, quantity)}
+              className="flex-1 w-full sm:w-auto px-6 py-3 bg-[#00A297] text-white rounded-xl font-bold hover:bg-[#00897b] transition h-12 shadow-lg focus:outline-none focus:ring-2 focus:ring-[#00A297]/40 whitespace-nowrap"
             >
               ADD TO CART
             </button>
