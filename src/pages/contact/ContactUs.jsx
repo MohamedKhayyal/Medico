@@ -4,8 +4,11 @@ import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase/firebaseConfig";
 import { toast } from "react-toastify";
 import Links from "../../components/Links";
+import { getAuth } from "firebase/auth";
 
 export default function ContactUs() {
+  const auth = getAuth();
+  const user = auth.currentUser;
   const Navigate = useNavigate();
   useEffect(() => {
     document.title = "Contact us";
@@ -49,10 +52,11 @@ export default function ContactUs() {
         agree: false,
       });
     } catch (err) {
-      toast.error("Please SignUp to Send The Message", {
-        position: "bottom-center",
-      });
-      Navigate("/signUp");
+      if (!user) {
+        toast.error("Please sign in to send a message.");
+        Navigate("/signUp");
+        return;
+      }
     }
   };
 
