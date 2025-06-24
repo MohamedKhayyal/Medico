@@ -12,6 +12,7 @@ import LatestProducts from "../../components/LatestProducts";
 import { useCart } from "../../components/CartContext";
 import StarRating from "../../components/StarRating";
 import Links from "../../components/Links";
+import Loading from "../../components/Loading";
 
 export default function Details() {
   const { id } = useParams();
@@ -48,7 +49,7 @@ export default function Details() {
     }
   }, [product]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div>{<Loading />}</div>;
   if (!product) return <div>Product not found.</div>;
 
   return (

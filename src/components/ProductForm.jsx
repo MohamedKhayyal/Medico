@@ -2,6 +2,7 @@ import { useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { db } from "../firebase/firebaseConfig";
+import Loading from "./Loading";
 
 export default function ProductForm() {
   const [form, setForm] = useState({
@@ -156,7 +157,7 @@ export default function ProductForm() {
         disabled={loading}
         className="bg-[#00A297] hover:bg-[#00897b] transition text-white px-6 py-3 rounded-xl w-full font-semibold text-lg shadow-lg hover:scale-[1.02] active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#00A297]/40 disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {loading ? "Adding..." : "Add Product"}
+        {loading ? <Loading message="Adding" /> : "Add Product"}
       </button>
     </form>
   );

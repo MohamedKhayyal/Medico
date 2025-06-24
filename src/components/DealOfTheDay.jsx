@@ -48,7 +48,7 @@ export default function DealOfTheDay() {
                     onMouseLeave={() => setHovered(null)}
                   >
                     <Link
-                      className="w-full md:w-1/2 flex justify-center items-center mb-4 md:mb-0 relative aspect-square max-w-[220px] mx-auto overflow-hidden rounded-xl bg-gradient-to-br from-[#f7fafc] to-[#e0f7fa] border border-gray-100 shadow-sm"
+                      className="w-full md:w-1/2 flex justify-center items-center mb-4 md:mb-0 relative aspect-square max-w-[220px] min-w-[160px] min-h-[160px] sm:min-w-[200px] sm:min-h-[200px] mx-auto overflow-hidden rounded-xl bg-gradient-to-br from-[#f7fafc] to-[#e0f7fa] border border-gray-100 shadow-sm"
                       to={`/details/${product.id}`}
                     >
                       <img

@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase/firebaseConfig";
+import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
 export default function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-
   useEffect(() => {
     const fetchProducts = async () => {
       const querySnapshot = await getDocs(collection(db, "Medico"));
@@ -23,8 +25,60 @@ export default function AdminDashboard() {
   }, []);
 
   const handleDelete = async (id) => {
-    await deleteDoc(doc(db, "Medico", id));
-    setProducts(products.filter((product) => product.id !== id));
+    toast(
+      ({ closeToast }) => (
+        <div className="p-6 rounded-2xl bg-white shadow-xl max-w-xs mx-auto">
+          <div className="flex items-center gap-2 mb-3">
+            <FontAwesomeIcon
+              icon={faExclamationTriangle}
+              className="text-red-500 text-xl"
+            />
+            <span className="text-xl font-extrabold text-[#00A297]">
+              Delete Confirmation
+            </span>
+          </div>
+          <p className="text-base font-semibold text-gray-800 mb-5">
+            Are you sure you want to delete this product?
+          </p>
+          <div className="flex justify-end gap-3">
+            <button
+              onClick={async () => {
+                await deleteDoc(doc(db, "Medico", id));
+                setProducts((prev) =>
+                  prev.filter((product) => product.id !== id)
+                );
+                closeToast();
+                toast.success("Product deleted successfully", {
+                  position: "top-center",
+                  icon: "🗑️",
+                  className:
+                    "!bg-white !text-[#00A297] font-bold !rounded-2xl !shadow-xl",
+                });
+              }}
+              className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-xl font-semibold shadow focus:outline-none focus:ring-2 focus:ring-red-400/40 transition"
+            >
+              Yes, Delete
+            </button>
+            <button
+              onClick={() => closeToast()}
+              className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-5 py-2 rounded-xl font-semibold shadow focus:outline-none focus:ring-2 focus:ring-gray-400/40 transition"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      ),
+      {
+        position: "top-center",
+        autoClose: false,
+        closeOnClick: false,
+        closeButton: false,
+        draggable: false,
+        toastId: `confirm-delete-${id}`,
+        className: "!rounded-2xl !border-2 border-[#00A297] !p-0 !bg-white",
+        bodyClassName: "!p-0",
+      }
+    );
   };
 
   return (

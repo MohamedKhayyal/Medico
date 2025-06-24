@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useAuth } from "./AuthContext";
+import Loading from "./Loading";
 
 export default function AdminRoute({ children }) {
   const { user } = useAuth();
@@ -30,7 +31,7 @@ export default function AdminRoute({ children }) {
     checkRole();
   }, [user]);
 
-  if (loading) return <div className="p-4">Checking Admin ...</div>;
+  if (loading) return <Loading message="Checking Admin ..." />;
   if (!isAdmin) return <Navigate to="/" />;
 
   return children;
