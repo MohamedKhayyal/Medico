@@ -9,6 +9,7 @@ import { useWishlist } from "../../components/WishlistContext";
 import StarRating from "../../components/StarRating";
 import Links from "../../components/Links";
 import Loading from "../../components/Loading";
+import Pagination from "../../components/Pagination";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -21,6 +22,8 @@ export default function Medcine() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { addToCart } = useCart();
   const { addToWishlist, isInWishlist, removeFromWishlist } = useWishlist();
+  const [currentPage, setCurrentPage] = useState(1);
+  const PRODUCTS_PER_PAGE = 10;
 
   const query = useQuery();
   const searchQuery = query.get("search")?.toLowerCase() || "";
@@ -72,6 +75,11 @@ export default function Medcine() {
               );
             }
             filtered = sortProducts(filtered, sort);
+            const totalPages = Math.ceil(filtered.length / PRODUCTS_PER_PAGE);
+            const paginatedProducts = filtered.slice(
+              (currentPage - 1) * PRODUCTS_PER_PAGE,
+              currentPage * PRODUCTS_PER_PAGE
+            );
             return (
               <>
                 <SidebarFilters
@@ -90,92 +98,99 @@ export default function Medcine() {
                   ) : filtered.length === 0 ? (
                     <div>No medicines found.</div>
                   ) : (
-                    <div
-                      style={{
-                        display: "grid",
-                        gridTemplateColumns:
-                          "repeat(auto-fit, minmax(250px, 1fr))",
-                        gap: 24,
-                      }}
-                    >
-                      {filtered.map((product) => (
-                        <div
-                          key={product.id}
-                          className="flex flex-col items-center border border-gray-200 bg-white rounded-2xl p-5 h-full relative group transition-shadow hover:shadow-2xl cursor-pointer shadow-md hover:scale-[1.02] duration-200"
-                          onMouseEnter={() => setHovered(product.id)}
-                          onMouseLeave={() => setHovered(null)}
-                        >
-                          <Link
-                            className="relative w-48 h-48 mb-4 mx-auto flex items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-[#f7fafc] to-[#e0f7fa] border border-gray-100 shadow-sm"
-                            to={`/details/${product.id}`}
-                          >
-                            <img
-                              loading="lazy"
-                              src={product.cover}
-                              alt={product.name}
-                              className={`absolute top-0 left-0 w-full h-full object-contain transition-all duration-500 ${
-                                hovered === product.id
-                                  ? "opacity-0 scale-95"
-                                  : "opacity-100 scale-100"
-                              }`}
-                            />
-                            <img
-                              loading="lazy"
-                              src={product.image1}
-                              alt={product.name}
-                              className={`absolute top-0 left-0 w-full h-full object-contain transition-all duration-500 ${
-                                hovered === product.id
-                                  ? "opacity-100 scale-100"
-                                  : "opacity-0 scale-105"
-                              }`}
-                            />
-                          </Link>
-
+                    <>
+                      <div
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns:
+                            "repeat(auto-fit, minmax(250px, 1fr))",
+                          gap: 24,
+                        }}
+                      >
+                        {paginatedProducts.map((product) => (
                           <div
-                            className={`absolute top-0 right-3 transition-all duration-300 z-10 ${
-                              hovered === product.id
-                                ? "translate-y-3 opacity-100"
-                                : "-translate-y-8 opacity-0"
-                            }`}
+                            key={product.id}
+                            className="flex flex-col items-center border border-gray-200 bg-white rounded-2xl p-5 h-full relative group transition-shadow hover:shadow-2xl cursor-pointer shadow-md hover:scale-[1.02] duration-200"
+                            onMouseEnter={() => setHovered(product.id)}
+                            onMouseLeave={() => setHovered(null)}
                           >
-                            <button
-                              onClick={() =>
-                                isInWishlist(product.id)
-                                  ? removeFromWishlist(product.id)
-                                  : addToWishlist(product)
-                              }
-                              className={`bg-white border rounded-full p-2 shadow-md transition duration-300 ${
-                                isInWishlist(product.id)
-                                  ? "text-[red] border-[red] hover:bg-[red] hover:text-white"
-                                  : "text-[#00A297] border-[#00A297] hover:bg-[#00A297] hover:text-white"
+                            <Link
+                              className="relative w-48 h-48 mb-4 mx-auto flex items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-[#f7fafc] to-[#e0f7fa] border border-gray-100 shadow-sm"
+                              to={`/details/${product.id}`}
+                            >
+                              <img
+                                loading="lazy"
+                                src={product.cover}
+                                alt={product.name}
+                                className={`absolute top-0 left-0 w-full h-full object-contain transition-all duration-500 ${
+                                  hovered === product.id
+                                    ? "opacity-0 scale-95"
+                                    : "opacity-100 scale-100"
+                                }`}
+                              />
+                              <img
+                                loading="lazy"
+                                src={product.image1}
+                                alt={product.name}
+                                className={`absolute top-0 left-0 w-full h-full object-contain transition-all duration-500 ${
+                                  hovered === product.id
+                                    ? "opacity-100 scale-100"
+                                    : "opacity-0 scale-105"
+                                }`}
+                              />
+                            </Link>
+
+                            <div
+                              className={`absolute top-0 right-3 transition-all duration-300 z-10 ${
+                                hovered === product.id
+                                  ? "translate-y-3 opacity-100"
+                                  : "-translate-y-8 opacity-0"
                               }`}
                             >
-                              <FontAwesomeIcon icon={farHeart} />
+                              <button
+                                onClick={() =>
+                                  isInWishlist(product.id)
+                                    ? removeFromWishlist(product.id)
+                                    : addToWishlist(product)
+                                }
+                                className={`bg-white border rounded-full p-2 shadow-md transition duration-300 ${
+                                  isInWishlist(product.id)
+                                    ? "text-[red] border-[red] hover:bg-[red] hover:text-white"
+                                    : "text-[#00A297] border-[#00A297] hover:bg-[#00A297] hover:text-white"
+                                }`}
+                              >
+                                <FontAwesomeIcon icon={farHeart} />
+                              </button>
+                            </div>
+                            <StarRating product={product.star} />
+                            <div className="text-center font-semibold text-gray-900 mb-1 min-h-[48px] text-base">
+                              {product.name}
+                            </div>
+
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="line-through text-gray-400 text-base">
+                                {product.price ? `$${product.price}` : ""}
+                              </span>
+                              <span className="text-[#00A297] font-bold text-xl">
+                                ${product.discount || product.descount}
+                              </span>
+                            </div>
+
+                            <button
+                              onClick={() => addToCart(product)}
+                              className="cursor-pointer w-full py-2 rounded-xl bg-gray-100 font-semibold text-gray-800 hover:bg-[#00A297] hover:text-white transition mb-2 shadow focus:outline-none focus:ring-2 focus:ring-[#00A297]/30"
+                            >
+                              ADD TO CART
                             </button>
                           </div>
-                          <StarRating product={product.star} />
-                          <div className="text-center font-semibold text-gray-900 mb-1 min-h-[48px] text-base">
-                            {product.name}
-                          </div>
-
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="line-through text-gray-400 text-base">
-                              {product.price ? `$${product.price}` : ""}
-                            </span>
-                            <span className="text-[#00A297] font-bold text-xl">
-                              ${product.discount || product.descount}
-                            </span>
-                          </div>
-
-                          <button
-                            onClick={() => addToCart(product)}
-                            className="cursor-pointer w-full py-2 rounded-xl bg-gray-100 font-semibold text-gray-800 hover:bg-[#00A297] hover:text-white transition mb-2 shadow focus:outline-none focus:ring-2 focus:ring-[#00A297]/30"
-                          >
-                            ADD TO CART
-                          </button>
-                        </div>
-                      ))}
-                    </div>
+                        ))}
+                      </div>
+                      <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={setCurrentPage}
+                      />
+                    </>
                   )}
                 </div>
               </>
