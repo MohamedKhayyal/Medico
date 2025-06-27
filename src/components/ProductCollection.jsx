@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
+import { useAuth } from "./AuthContext"; 
 
 export default function ProductCollection({
   collectionName = "Medico",
@@ -9,6 +10,7 @@ export default function ProductCollection({
 }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { loading: authLoading } = useAuth(); 
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -27,8 +29,11 @@ export default function ProductCollection({
       }
     };
 
-    fetchProducts();
-  }, [collectionName, limit]);
+    if (!authLoading) {
+      fetchProducts();
+    }
+  }, [collectionName, limit, authLoading]);
 
-  return children({ products, loading });
-}
+  return children({ products, loading: loading || authLoading });
+                      }
+  
