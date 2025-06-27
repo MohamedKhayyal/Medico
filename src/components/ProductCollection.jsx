@@ -10,11 +10,10 @@ export default function ProductCollection({
 }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { user, loading: authLoading } = useAuth(); // ✅
+  const { loading: authLoading } = useAuth();
 
   useEffect(() => {
-    // ✅ انتظر Firebase Authentication قبل محاولة تحميل المنتجات
-    if (authLoading || !user) return;
+    if (authLoading) return;
 
     const fetchProducts = async () => {
       try {
@@ -34,10 +33,10 @@ export default function ProductCollection({
     };
 
     fetchProducts();
-  }, [collectionName, limit, user, authLoading]);
+  }, [collectionName, limit, authLoading]);
 
   return children({
     products,
-    loading: loading || authLoading, // ✅ نرجّع loading = true لو auth لسه بيحمّل
+    loading: loading || authLoading,
   });
 }
